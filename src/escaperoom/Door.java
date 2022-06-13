@@ -2,7 +2,7 @@ package escaperoom;
 
 public class Door {
     private boolean isOpen;
-    private Key key;
+    private final Key key;
 
     public Door(Key key) {
         this.key = key;

@@ -1,10 +1,11 @@
 package escaperoom;
 
 public class Key {
-    private boolean inHand = false;
+    private boolean inHand;
 
     void takeKey() {
-        inHand = true;
+            inHand = true;
+            System.out.println("Podnosisz klucz");
     }
 
     public boolean isInHand() {
