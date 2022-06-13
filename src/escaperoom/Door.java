@@ -4,8 +4,7 @@ public class Door {
     private boolean isOpen;
     private Key key;
 
-    public Door(boolean isOpen, Key key) {
-        this.isOpen = isOpen;
+    public Door(Key key) {
         this.key = key;
     }
 
@@ -13,6 +12,8 @@ public class Door {
         if (key.isInHand()) {
             System.out.println("Drzwi zostaly otwarte");
             isOpen = true;
+        } else {
+            System.out.println("Nie znalazles jeszcze klucza aby otworzyc te drzwi");
         }
     }
 
