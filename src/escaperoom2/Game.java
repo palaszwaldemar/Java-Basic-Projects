@@ -1,19 +1,53 @@
 package escaperoom2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
-    private Room room = new Room();
+    private final List<Room> rooms;
+    private final Player player = new Player();
+    private boolean gameEnd;
 
-    public ArrayList<Item> getItems() {
-        return room.getItems();
+    public Game() {
+        RoomsFactory roomsFactory = new RoomsFactory();
+        rooms = roomsFactory.createRooms();
     }
 
-    void useItem(String choose) {
-        for (Item item : room.getItems()) {
+    public List<Item> getItems() {
+        return rooms.get(0).getItems();
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    String useItem(String choose) {
+        for (Item item : rooms.get(0).getItems()) {
             if(item.getName().equalsIgnoreCase(choose)) {
-               item.use();
+               return item.use(rooms.get(0), player, this);
             }
         }
+        return "Nie ma takiego przedmiotu";
+    }
+
+    public boolean isGameEnd() {
+        return gameEnd;
+    }
+
+    void checkIfGameHasRooms() {
+        if (rooms.isEmpty())
+        gameEnd = true;
+    }
+
+    List<String> getOwnedItemNames() {
+        List<String> names = new ArrayList<>();
+        for (Item item: player.getItems()) {
+            names.add(item.getName());
+        }
+        return names;
     }
 }

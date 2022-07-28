@@ -1,13 +1,20 @@
 package escaperoom2;
 
-public class Window extends Item{
+public class Window extends Item {
+    private boolean isClose = true;
 
     public Window() {
         super("Okno");
     }
 
     @Override
-    void use() {
-        System.out.println("Uzywam okna");
+    String use(Room room, Player player, Game game) {
+        if (isClose) {
+            isClose = false;
+            return "Otwierasz okno";
+        } else {
+            isClose = true;
+            return "Zamykasz okno";
+        }
     }
 }

@@ -1,33 +1,46 @@
 package escaperoom2;
 
-import java.util.Scanner;
 
-//tylko tutaj sout i scanner
-public class Controller {
-    private Game game = new Game();
+public abstract class Controller {
+    private final Game game = new Game();
 
     void start() {
-        System.out.println("WITAJ W GRZE ESCAPEROOM");
-        displayItems();
-        String choose = chooseItem();
-        useItem(choose);
+        printMessage("WITAJ W GRZE ESCAPEROOM");
+        do {
+            displayPlayerItems();
+            String choose = chooseItem();
+            useItem(choose);
+            game.checkIfGameHasRooms();
+        } while (!game.isGameEnd());
+        printMessage("Brawo wygrałeś!");
     }
 
-    void displayItems() {
-        for (int i = 0; i < game.getItems().size(); i++) {
-            System.out.println((i + 1) + ". " + game.getItems().get(i));
+    private void displayPlayerItems() {
+        StringBuilder show = new StringBuilder();
+        for(String name : game.getOwnedItemNames()){
+            show.append(name).append("\n");
         }
+        printMessage("\nPrzedmioty w plecaku:\n" + show + "\n");
     }
 
-    String chooseItem() {
-        System.out.print("Podaj nazwe przedmiotu, ktorego chcesz uzyc: ");
-        Scanner scanner = new Scanner(System.in);
-        String choose = scanner.next();
-        return choose;
+    private String chooseItem() {
+        return readAnswer(prepareItemsDisplay()
+                + "Podaj nazwe przedmiotu, ktorego chcesz uzyc: ");
     }
 
-    void useItem(String choose) {
-        game.useItem(choose);
+    private String prepareItemsDisplay() {
+        StringBuilder show = new StringBuilder("Przedmioty w pokoju:\n");
+        for (int i = 0; i < game.getItems().size(); i++) {
+            show.append(i + 1).append(". ").append(game.getItems().get(i)).append("\n");
+        }
+        return show.toString();
     }
 
+    private void useItem(String choose) {
+        printMessage(game.useItem(choose));
+    }
+
+    abstract void printMessage(String message);
+
+    abstract String readAnswer(String question);
 }

@@ -1,5 +1,4 @@
-package escaperoom;//todo check
-                   //todo check notes
+package escaperoom;
 
 public class Launcher {
     public static void main(String[] args) {

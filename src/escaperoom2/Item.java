@@ -7,14 +7,18 @@ public abstract class Item {
         this.name = name;
     }
 
-    abstract void use();
+    abstract String use(Room room, Player player, Game game); //todo uproscic zeby nie trzeba bylo tyle parametrow dodawac
 
-    @Override
-    public String toString() {
+    public String getName() {
         return name;
     }
 
-    public String getName() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
         return name;
     }
 }

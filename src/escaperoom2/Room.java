@@ -1,17 +1,20 @@
 package escaperoom2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Room {
-    private ArrayList<Item> items = new ArrayList<>();
+    private final List<Item> items;
 
-    public Room() {
-        items.add(new Key());
-        items.add(new Door());
-        items.add(new Window());
+    public Room(List<Item> items) {
+        this.items = items;
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
+    public List<Item> getItems() {
+        return new ArrayList<>(items) ;
+    }
+
+    void removeItem(Item item) {
+        items.remove(item);
     }
 }
