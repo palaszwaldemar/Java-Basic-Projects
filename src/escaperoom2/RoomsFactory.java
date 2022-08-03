@@ -14,7 +14,7 @@ public class RoomsFactory {
 
     private Room createFirstRoom() {
         List<Item> itemsOfFirstRoom = new ArrayList<>();
-        Key key1 = new Key(1);
+        Key key1 = new Key("do drzwi");
         itemsOfFirstRoom.add(key1);
         itemsOfFirstRoom.add(new Door(key1));
         itemsOfFirstRoom.add(new Window());
@@ -24,8 +24,8 @@ public class RoomsFactory {
     private Room createSecondRoom() {
         List<Item> itemsOfSecondRoom = new ArrayList<>();
         Code code = new Code();
-        Key key2 = new Key(2);
-        Key key3 = new Key(3);
+        Key key2 = new Key("do biurka");
+        Key key3 = new Key("do drzwi");
         itemsOfSecondRoom.add(new Desk(key2, key3));
         itemsOfSecondRoom.add(new Door(key3));
         itemsOfSecondRoom.add(new Wardrobe(code, key2));
