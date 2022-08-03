@@ -2,8 +2,8 @@ package escaperoom2;
 
 public class Key extends Item {
 
-    public Key(int keyId) {
-        super("Klucz" + keyId);
+    public Key(String destination) {
+        super("Klucz " + destination);
     }
 
     @Override
