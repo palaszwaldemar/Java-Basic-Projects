@@ -13,6 +13,7 @@ public class Door extends Item {
     String use(Room room, Player player, Game game) {
         if (player.hasItem(key)){
             game.getRooms().remove(0);
+            game.getPlayer().getItems().clear();
             if (game.getRooms().isEmpty()) {
                 return "Otwierasz drzwi!";
             } else {
