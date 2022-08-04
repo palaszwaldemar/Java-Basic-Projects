@@ -10,9 +10,16 @@ public class Book {
         this.numberOfCopies = numberOfCopies;
         this.isbn = isbn;
     }
-
     public String getTitle() {
         return title;
+    }
+
+    public int getNumberOfCopies() {
+        return numberOfCopies;
+    }
+
+    public String getIsbn() {
+        return isbn;
     }
 
     @Override
