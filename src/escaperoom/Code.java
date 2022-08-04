@@ -1,4 +1,4 @@
-package escaperoom2;
+package escaperoom;
 
 public class Code extends Item{
 

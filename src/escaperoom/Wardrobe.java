@@ -1,4 +1,4 @@
-package escaperoom2;
+package escaperoom;
 
 public class Wardrobe extends Item{
     private final Code code;

@@ -1,4 +1,4 @@
-package escaperoom2;
+package escaperoom;
 
 
 import java.util.Scanner;

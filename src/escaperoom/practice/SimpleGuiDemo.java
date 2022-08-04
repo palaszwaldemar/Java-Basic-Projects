@@ -1,4 +1,4 @@
-package escaperoom2.practice;
+package escaperoom.practice;
 
 import javax.swing.*;
 
