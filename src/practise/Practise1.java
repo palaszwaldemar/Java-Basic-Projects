@@ -1,7 +1,7 @@
 package practise;
 
-import escaperoom2.Item;
-import escaperoom2.Window;
+import escaperoom.Item;
+import escaperoom.Window;
 
 import java.util.ArrayList;
 import java.util.List;

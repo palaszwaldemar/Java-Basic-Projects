@@ -1,15 +1,20 @@
 package escaperoom;
 
-public class Window {
-    private boolean isOpen;
+public class Window extends Item {
+    private boolean isClose = true;
 
-    void useWindow() {
-        if (!isOpen) {
-            System.out.println("Okno zostalo otwarte");
-            isOpen = true;
+    public Window() {
+        super("Okno");
+    }
+
+    @Override
+    String use(Room room, Player player, Game game) {
+        if (isClose) {
+            isClose = false;
+            return "Otwierasz okno";
         } else {
-            System.out.println("Okno zostalo zamkniete");
-            isOpen = false;
+            isClose = true;
+            return "Zamykasz okno";
         }
     }
 }

@@ -1,14 +1,15 @@
 package escaperoom;
 
-public class Key {
-    private boolean inHand;
+public class Key extends Item {
 
-    void takeKey() {
-            inHand = true;
-            System.out.println("Podnosisz klucz");
+    public Key(String destination) {
+        super("Klucz " + destination);
     }
 
-    public boolean isInHand() {
-        return inHand;
+    @Override
+    String use(Room room, Player player, Game game) {
+        player.addItem(this);
+        room.removeItem(this);
+        return "Podnosisz klucz";
     }
 }

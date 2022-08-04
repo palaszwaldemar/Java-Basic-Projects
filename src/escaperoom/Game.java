@@ -1,78 +1,53 @@
 package escaperoom;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
-    private final Window window;
-    private final Key key;
-    private final Door door;
+    private final List<Room> rooms;
+    private final Player player = new Player();
+    private boolean gameEnd;
 
-    public Game(Window window, Key key, Door door) {
-        this.window = window;
-        this.key = key;
-        this.door = door;
+    public Game() {
+        RoomsFactory roomsFactory = new RoomsFactory();
+        rooms = roomsFactory.createRooms();
     }
 
-    void welcome() {
-        System.out.println("\nGRA ESCAPEROOM\nWybierz przedmiot który chcesz uzyc");
+    public List<Item> getItems() {
+        return rooms.get(0).getItems();
     }
 
-    void goodbye() {
-        System.out.println("\nGRATULUJE UKONCZENIA GRY");
+    public List<Room> getRooms() {
+        return rooms;
     }
 
-    void showAvailableOptionsWithoutFoundKey() {
-        System.out.println("""
-                1. Okno
-                2. Drzwi
-                3. Klucz""");
+    public Player getPlayer() {
+        return player;
     }
 
-    void showAvailableOptionsWithFoundKey() {
-        System.out.println("""
-                1. Okno
-                2. Drzwi""");
-    }
-
-    void chooseOptionWithoutFoundKey(String choose) {
-        switch (choose) {
-            case "Okno" -> window.useWindow();
-            case "Drzwi" -> door.useDoor();
-            case "Klucz" -> key.takeKey();
-            default -> System.out.println("Nie ma takiego przedmiotu");
-        }
-    }
-
-    void chooseOptionWithFoundKey(String choose) {
-        switch (choose) {
-            case "Okno" -> window.useWindow();
-            case "Drzwi" -> door.useDoor();
-            default -> System.out.println("Nie ma takiego przedmiotu");
-        }
-    }
-
-    void gameWithoutFoundKey() {
-        showAvailableOptionsWithoutFoundKey();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Twoj wybor: ");
-        String choose = scanner.next();
-        chooseOptionWithoutFoundKey(choose);
-    }
-
-    void gameWithFoundKey() {
-        showAvailableOptionsWithFoundKey();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Twoj wybor: ");
-        String choose = scanner.next();
-        chooseOptionWithFoundKey(choose);
-    }
-    void startGame() {
-        do {
-            if(!key.isInHand()) {
-                gameWithoutFoundKey();
-            } else {
-                gameWithFoundKey();
+    String useItem(String choose) {
+        for (Item item : rooms.get(0).getItems()) {
+            if(item.getName().equalsIgnoreCase(choose)) {
+               return item.use(rooms.get(0), player, this);
             }
-        } while (!door.isOpen());
+        }
+        return "Nie ma takiego przedmiotu";
+    }
+
+    public boolean isGameEnd() {
+        return gameEnd;
+    }
+
+    void checkIfGameHasRooms() {
+        if (rooms.isEmpty())
+        gameEnd = true;
+    }
+
+    List<String> getOwnedItemNames() {
+        List<String> names = new ArrayList<>();
+        for (Item item: player.getItems()) {
+            names.add(item.getName());
+        }
+        return names;
     }
 }
