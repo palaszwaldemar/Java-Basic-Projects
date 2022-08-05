@@ -23,7 +23,7 @@ public class RoomsFactory {
 
     private Room createSecondRoom() {
         List<Item> itemsOfSecondRoom = new ArrayList<>();
-        Code code = new Code();
+        Code code = new Code("2546");
         Key key2 = new Key("do biurka");
         Key key3 = new Key("do drzwi");
         itemsOfSecondRoom.add(new Desk(key2, key3));

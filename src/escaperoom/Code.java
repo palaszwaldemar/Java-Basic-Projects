@@ -1,16 +1,18 @@
 package escaperoom;
 
 public class Code extends Item{
+    private final String code;
 
-    public Code() {
+    public Code(String code) {
         super("Kod");
+        this.code = code;
     }
 
     @Override
     String use(Room room, Player player, Game game) {
         player.addItem(this);
         room.removeItem(this);
-        setName("Kod: 2546");
-        return "Znajdujesz kartkę z kodem: 2546";
+        setName("Kod: " + code);
+        return "Znajdujesz kartkę z kodem: " + code;
     }
 }
