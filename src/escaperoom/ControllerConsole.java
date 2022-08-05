@@ -14,7 +14,7 @@ public class ControllerConsole extends Controller {
     @Override
     String readAnswer(String question) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(question);
-        return scanner.next();
+        System.out.print(question);
+        return scanner.nextLine();
     }
 }

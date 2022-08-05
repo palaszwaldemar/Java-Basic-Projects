@@ -39,8 +39,9 @@ public class Game {
     }
 
     void checkIfGameHasRooms() {
-        if (rooms.isEmpty())
-        gameEnd = true;
+        if (rooms.isEmpty()) {
+            gameEnd = true;
+        }
     }
 
     List<String> getOwnedItemNames() {
