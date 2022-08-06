@@ -37,13 +37,6 @@ public abstract class Controller {
     }
 
     private void useItem(String choose) {
-        if (choose.equalsIgnoreCase("Szafa")) {//todo wprowadzanie kodu przez użytkownika
-            String newCode = readAnswer("Podaj kod: ");
-            if (!newCode.contains(game.getRoomsFactory().getCodeCreateWithCreateRoom().getCode())) {
-                printMessage("Nieprawidłowy kod");
-                return;
-            }
-        }
         printMessage(game.useItem(choose));
     }
 

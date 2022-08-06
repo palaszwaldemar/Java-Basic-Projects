@@ -7,16 +7,11 @@ public class Game {
     private final List<Room> rooms;
     private final Player player = new Player();
     private boolean gameEnd;
-    private final RoomsFactory roomsFactory = new RoomsFactory();//todo obiekt wyciągniety z konstruktora dla możliwości wprowadzania kodu przez użytkownika
 
     public Game() {
+        RoomsFactory roomsFactory = new RoomsFactory();
         rooms = roomsFactory.createRooms();
     }
-
-    public RoomsFactory getRoomsFactory() {
-        return roomsFactory;
-    }
-
     public List<Item> getItems() {
         return rooms.get(0).getItems();
     }

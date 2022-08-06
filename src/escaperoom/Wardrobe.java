@@ -1,14 +1,16 @@
 package escaperoom;
 
+import java.util.Scanner;
+
 public class Wardrobe extends Item{
-    private final Code code;
+    private final Code codeToOpenWardrobe;
     private final Key key;
     private boolean wasUse;
     private boolean isOpen;
 
     public Wardrobe(Code code, Key key) {
         super("Szafa");
-        this.code = code;
+        this.codeToOpenWardrobe = code;
         this.key = key;
     }
 
@@ -23,12 +25,19 @@ public class Wardrobe extends Item{
                 return "Zamykasz szafę";
             }
         }
-        if (player.hasItem(code)) {
+        System.out.print("Podaj kod do szafy: ");//todo wprowadzanie kodu przez użytkownika. Nie powinno być w tej klasie obiektu typu Scanner oraz sout ale nie wiem jak zrobić inaczej
+        Scanner scanner = new Scanner(System.in);
+        String newCode = scanner.next();
+        if (checkCode(newCode)) {
             player.addItem(key);
             isOpen = true;
             wasUse = true;
             return "Znajdujesz klucz do biurka.";
         }
-        return "Nie masz kodu do szafy";
+        return "Błędny kod";
+    }
+
+    boolean checkCode (String newCode) {
+        return newCode.equals(codeToOpenWardrobe.getCode());
     }
 }

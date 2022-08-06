@@ -8,7 +8,7 @@ public class Code extends Item{
         this.code = code;
     }
 
-    public String getCode() {//todo dodany getter aby można było wprowadzać kod przez użytkownika
+    public String getCode() {
         return code;
     }
 
