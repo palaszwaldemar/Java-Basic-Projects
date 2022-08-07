@@ -3,14 +3,14 @@ package library;
 import java.util.List;
 
 public class Library {
-    private final FileReposytory fileReposytory = new FileReposytory();
+    private final FileRepository fileRepository = new FileRepository();
 
     public List<Book> getBooks() {
-        return fileReposytory.downloadFile();
+        return fileRepository.downloadFile();
     }
 
-    public FileReposytory getFileReposytory() {
-        return fileReposytory;
+    public FileRepository getFileReposytory() {
+        return fileRepository;
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileReposytory {
+public class FileRepository {
 
 
     public List<Book> downloadFile() {
