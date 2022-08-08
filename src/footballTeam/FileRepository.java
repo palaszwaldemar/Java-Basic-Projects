@@ -38,10 +38,10 @@ public class FileRepository {
         String dateOfBirthString = dateOfBirth.toString();
         long age = dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS);
         if (age < 18) {
-            throw new RuntimeException();
+            throw new PlayerException("\nZawodnik musi być pełnoletni\n");
         }
         if (numberOFGoals < 0) {
-            throw new PlayerException("Liczba goli nie może być mniejsza od 0");
+            throw new PlayerException("\nLiczba goli nie może być mniejsza od 0\n");
         }
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("src\\footballTeam\\Players.csv", true);

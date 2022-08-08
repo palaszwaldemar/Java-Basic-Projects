@@ -14,9 +14,7 @@ public class Manager {
         try {
             fileRepository.addInfoPlayerToFile(name, surname, dateOfBirth, numberOfGoals);
         } catch (PlayerException e) {
-            System.out.println("Liczba goli nie może być mniejsza od 0");
-        } catch (RuntimeException e) {
-            System.out.println("Zawodnik musi być pełnoletni");
+            System.out.println(e.getMessage());
         }
     }
 }
