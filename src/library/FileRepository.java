@@ -15,14 +15,14 @@ public class FileRepository {
         List<Book> books = new ArrayList<>();
         try {
             File file = new File("src\\library\\Ksiazki.csv");
-            Scanner scanner = new Scanner(file);
+            Scanner scanner = new Scanner(file);//todo czy obiekt typu Scanner nie powinien być w klasie Controller
             while (scanner.hasNextLine()) {
                 String text = scanner.nextLine();
                 books.add(mapBook(text));
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Nie znaleziono pliku");
+            System.out.println("Nie znaleziono pliku"); //todo czy printline nie powinien być w klasie Controller
         } catch (NumberFormatException e) {
             System.out.println("Błędne dane książki");
         } catch (ArrayIndexOutOfBoundsException e) {
