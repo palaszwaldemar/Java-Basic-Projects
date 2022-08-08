@@ -1,6 +1,7 @@
 package footballTeam;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -48,17 +49,22 @@ public class Controller {
     }
 
     private void addPlayer() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj imię: ");
-        String name = scanner.nextLine();
-        System.out.print("Podaj nazwisko: ");
-        String surname = scanner.nextLine();
-        System.out.print("Podaj datę urodzenia [yyyy-mm-dd]: ");
-        String dateOfBirth = scanner.nextLine();
-        LocalDate localDate = LocalDate.parse(dateOfBirth);
-        System.out.print("Podaj liczbę zdobytych goli w karierze: ");
-        int numberOfGoals = scanner.nextInt();
-        manager.addPlayer(name, surname, localDate, numberOfGoals);
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Podaj imię: ");
+            String name = scanner.nextLine();
+            System.out.print("Podaj nazwisko: ");
+            String surname = scanner.nextLine();
+            System.out.print("Podaj datę urodzenia [yyyy-mm-dd]: ");
+            String dateOfBirth = scanner.nextLine();
+            LocalDate localDate = LocalDate.parse(dateOfBirth);
+            System.out.print("Podaj liczbę zdobytych goli w karierze: ");
+            int numberOfGoals = scanner.nextInt();
+            manager.addPlayer(name, surname, localDate, numberOfGoals);
+        } catch (DateTimeParseException e) {
+            System.out.println("\nBłędny format daty\n");
+        }
+
     }
 
     private void endProgram() {
