@@ -77,7 +77,7 @@ public class Controller {
         try {//todo nie wiem czy tutaj mogę obsłużyć wyjątek
             library.getFileReposytory().addBook(title, numberOfCopies, isbn);
         } catch (BookException e) {
-            System.out.println("Niepoprawny numer ISBN");
+            System.out.println(e.getMessage());
         }
         Book book = new Book(title,numberOfCopies, isbn);
         library.getBooks().add(book);
