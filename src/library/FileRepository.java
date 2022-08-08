@@ -17,8 +17,8 @@ public class FileRepository {
             File file = new File("src\\library\\Ksiazki.csv");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                String tekst = scanner.nextLine();
-                books.add(mapBook(tekst));
+                String text = scanner.nextLine();
+                books.add(mapBook(text));
             }
             scanner.close();
         } catch (FileNotFoundException e) {
