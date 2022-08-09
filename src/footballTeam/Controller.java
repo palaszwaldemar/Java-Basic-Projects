@@ -21,8 +21,8 @@ public class Controller {
                 System.out.println();
                 switch (choose) {
                     case 1 -> showPlayers();
-                    case 3 -> addPlayer();
-                    case 4 -> endProgram();
+                    case 2 -> addPlayer();
+                    case 3 -> endProgram();
                     default -> System.out.println("Nie ma takiej opcji do wyboru\n");
                 }
             } catch (InputMismatchException e) {
@@ -30,15 +30,14 @@ public class Controller {
                 choose = 5;
 
             }
-        } while (choose != 4);
+        } while (choose != 3);
     }
 
     private void showProgramOptions() {
         System.out.println("""
                 1. Wyświetl wszystkich dostępnych zawodników
-                2. Usuń zawodnika z klubu
-                3. Dodaj zawodnika do klubu
-                4. Zakończ program""");
+                2. Dodaj zawodnika do klubu
+                3. Zakończ program""");
     }
 
     private void showPlayers() {
