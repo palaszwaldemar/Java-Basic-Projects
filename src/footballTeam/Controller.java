@@ -1,5 +1,6 @@
-package footballTeam;
+package footballTeam;// TODO: 09.08.2022 dodałem obsługę wszystkich wyjątków do klasy Controler. Czy tak może być? 
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
@@ -41,9 +42,13 @@ public class Controller {
     }
 
     private void showPlayers() {
-        for (Player player : manager.getPlayers()) {
-            System.out.println(player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
-                    ", liczba goli: " + player.getNumberOfGoals());
+        try {
+            for (Player player : manager.getPlayers()) {
+                System.out.println(player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
+                        ", liczba goli: " + player.getNumberOfGoals());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Nie znaleziono pliku");
         }
         System.out.println();
     }
@@ -63,6 +68,10 @@ public class Controller {
             manager.addPlayer(name, surname, localDate, numberOfGoals);
         } catch (DateTimeParseException e) {
             System.out.println("\nBłędny format daty\n");
+        } catch (PlayerException e) {
+            System.out.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("Nie znaleziono pliku");
         }
 
     }

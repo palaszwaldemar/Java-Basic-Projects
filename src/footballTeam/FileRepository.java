@@ -12,18 +12,14 @@ import java.util.Scanner;
 
 public class FileRepository {
 
-    List<Player> downloadFile() {
+    List<Player> downloadFile() throws FileNotFoundException {
         List<Player> players = new ArrayList<>();
         File file = new File("src\\footballTeam\\Players.csv");
-        try {
-            Scanner scanner = new Scanner(file); // TODO: 08.08.2022 Scanner nie powinien być w klasie Controller?
+            Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String playerInfo = scanner.nextLine();
                 players.add(mapPlayer(playerInfo));
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Nie znaleziono pliku"); // TODO: 08.08.2022 sout nie powinien być w klasie Controller?
-        }
         return players;
     }
 
@@ -34,7 +30,7 @@ public class FileRepository {
         return new Player(infoPlayer[0], infoPlayer[1], localDate, numberOfGoals);
     }
 
-    void addInfoPlayerToFile(String name, String surname, LocalDate dateOfBirth, int numberOFGoals) {
+    void addInfoPlayerToFile(String name, String surname, LocalDate dateOfBirth, int numberOFGoals) throws FileNotFoundException {
         String dateOfBirthString = dateOfBirth.toString();
         long age = dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS);
         if (LocalDate.now().getYear() < dateOfBirth.getYear()) {
@@ -46,14 +42,10 @@ public class FileRepository {
         if (numberOFGoals < 0) {
             throw new PlayerException("\nLiczba goli nie może być mniejsza od 0\n");
         }
-        try {
             FileOutputStream fileOutputStream = new FileOutputStream("src\\footballTeam\\Players.csv", true);
             PrintWriter printWriter = new PrintWriter(fileOutputStream);
             printWriter.print("\n" + name + "," + surname + "," + dateOfBirthString + "," + numberOFGoals);
             printWriter.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Nie znaleziono pliku");
-        }
 
     }
 }
