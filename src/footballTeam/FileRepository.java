@@ -33,7 +33,7 @@ public class FileRepository {
     void addInfoPlayerToFile(String name, String surname, LocalDate dateOfBirth, int numberOFGoals) throws FileNotFoundException {
         String dateOfBirthString = dateOfBirth.toString();
         long age = dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS);
-        if (LocalDate.now().getYear() < dateOfBirth.getYear()) {
+        if (dateOfBirth.isAfter(LocalDate.now())) {
             throw new PlayerException("\nData urodzenia nie może być z przyszłości\n");
         }
         if (age < 18) {
