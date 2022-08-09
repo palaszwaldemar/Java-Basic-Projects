@@ -1,9 +1,6 @@
 package footballTeam;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -11,10 +8,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileRepository {
+    private final File file = new File("src\\footballTeam\\Players.csv");
 
     List<Player> downloadFile() throws FileNotFoundException {
         List<Player> players = new ArrayList<>();
-        File file = new File("src\\footballTeam\\Players.csv");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String playerInfo = scanner.nextLine();
@@ -42,10 +39,9 @@ public class FileRepository {
         if (numberOFGoals < 0) {
             throw new PlayerException("\nLiczba goli nie może być mniejsza od 0\n");
         }
-            FileOutputStream fileOutputStream = new FileOutputStream("src\\footballTeam\\Players.csv", true);
-            PrintWriter printWriter = new PrintWriter(fileOutputStream);
-            printWriter.print("\n" + name + "," + surname + "," + dateOfBirthString + "," + numberOFGoals);
-            printWriter.close();
-
+        FileOutputStream fileOutputStream = new FileOutputStream(file, true);
+        PrintWriter printWriter = new PrintWriter(fileOutputStream);
+        printWriter.print("\n" + name + "," + surname + "," + dateOfBirthString + "," + numberOFGoals);
+        printWriter.close();
     }
 }
