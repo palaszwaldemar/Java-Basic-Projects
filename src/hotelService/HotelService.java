@@ -25,7 +25,7 @@ public class HotelService {
 
     String cleanRoom(int numberOfRoom) {
         Room roomToClean = hotel.getRoom(numberOfRoom);
-        if (roomToClean == null) { // TODO: 10.08.2022 przetestowac wersje z wyjatkami
+        if (roomToClean == null) {
             return "Nie ma takiego pokoju";
         }
         if (roomToClean.isClean()) {

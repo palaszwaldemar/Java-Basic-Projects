@@ -25,7 +25,7 @@ public class Wardrobe extends Item{
                 return "Zamykasz szafę";
             }
         }
-        System.out.print("Podaj kod do szafy: ");//todo wprowadzanie kodu przez użytkownika. Nie powinno być w tej klasie obiektu typu Scanner oraz sout ale nie wiem jak zrobić inaczej
+        System.out.print("Podaj kod do szafy: ");// TODO: 10.08.2022 wprowadzanie kodu przez użytkownika. Nie powinno być w tej klasie obiektu typu Scanner oraz sout ale nie wiem jak zrobić inaczej
         Scanner scanner = new Scanner(System.in);
         String newCode = scanner.next();
         if (checkCode(newCode)) {

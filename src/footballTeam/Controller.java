@@ -26,7 +26,6 @@ public class Controller {
                     default -> System.out.println("Nie ma takiej opcji do wyboru\n");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("\nProszę wprowadzić liczbę\n");
                 choose = 5;
 
             }
