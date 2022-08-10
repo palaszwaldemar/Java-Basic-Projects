@@ -7,7 +7,7 @@ public abstract class Item {
         this.name = name;
     }
 
-    abstract String use(Room room, Player player, Game game); //todo uproscic zeby nie trzeba bylo tyle parametrow dodawac
+    abstract String use(Room room, Player player, Game game); // TODO: 10.08.2022 uproscic zeby nie trzeba bylo tyle parametrow dodawac
 
     public String getName() {
         return name;

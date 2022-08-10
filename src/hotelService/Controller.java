@@ -52,7 +52,6 @@ public class Controller {
             } else {
                 status = "zajęty";
             }
-
             System.out.println("Pokój nr: " + room.getNumberOfRoom() + " \tstatus: " + status + " \t   ilość miejsc: "
                     + room.getHowManyPersonCanCheckIn());
         }
