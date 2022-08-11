@@ -18,16 +18,15 @@ public class Controller {
                 showProgramOptions();
                 System.out.print("\nPodaj numer z menu: ");
                 choose = scanner.nextInt();
-                System.out.println();
-                switch (choose) {
-                    case 1 -> showPlayers();
-                    case 2 -> addPlayer();
-                    case 3 -> endProgram();
-                    default -> System.out.println("Nie ma takiej opcji do wyboru\n");
-                }
             } catch (InputMismatchException e) {
                 choose = 5;
-
+            }
+            System.out.println();
+            switch (choose) {
+                case 1 -> showPlayers();
+                case 2 -> addPlayer();
+                case 3 -> endProgram();
+                default -> System.out.println("Nie ma takiej opcji do wyboru\n");
             }
         } while (choose != 3);
     }
@@ -71,6 +70,8 @@ public class Controller {
             System.out.println(e.getMessage());
         } catch (FileNotFoundException e) {
             System.out.println("Nie znaleziono pliku");
+        } catch (InputMismatchException e) {
+            System.out.println("Liczba niepoprawna");
         }
     }
 
