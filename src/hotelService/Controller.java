@@ -1,7 +1,9 @@
 package hotelService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +18,12 @@ public class Controller {
         do {
             showAvailableOptions();
             System.out.print("Twój wybór: ");
-            choose = scanner.nextInt();
+            try {
+                choose = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                choose = 9;
+                scanner.nextLine();
+            }
             switch (choose) {
                 case 1 -> showAllRooms();
                 case 2 -> showAvailableRooms();
@@ -26,7 +33,7 @@ public class Controller {
                 case 6 -> checkIn();
                 case 7 -> checkOut();
                 case 8 -> System.out.println("DO WIDZENIA");
-                default -> System.out.println("Nie ma takiej opcji do wyboru");
+                default -> System.out.println("\nNie ma takiej opcji do wyboru");
             }
             System.out.println();
         } while (choose != 8);
@@ -78,8 +85,12 @@ public class Controller {
     private void cleanRoom() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Podaj numer pokoju do posprzątania: ");
-        int numberOfRoomToClean = scanner.nextInt();
-        System.out.println(hotelService.cleanRoom(numberOfRoomToClean));
+        try {
+            int numberOfRoomToClean = scanner.nextInt();
+            System.out.println(hotelService.cleanRoom(numberOfRoomToClean));
+        } catch (NullPointerException | InputMismatchException e) {
+            System.out.println("\nNie ma takiego pokoju");
+        }
     }
 
     private List<Guest> createListOfGuests(int numberOfGuests) {
@@ -100,26 +111,37 @@ public class Controller {
     }
 
     private void checkIn() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj numer pokoju do rezerwacji: ");
-        int numberOfRoomToCheckIn = scanner.nextInt();
-        System.out.print("Podaj ile osób będzie meldowanych: ");
-        int numberOfGuests = scanner.nextInt();
-        if (!hotelService.enoughPlaces(numberOfGuests, numberOfRoomToCheckIn)) {
-            System.out.println("Pokój zbyt mały dla takiej liczby osób.");
-            return;
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Podaj numer pokoju do rezerwacji: ");
+            int numberOfRoomToCheckIn = scanner.nextInt();
+            System.out.print("Podaj ile osób będzie meldowanych: ");
+            int numberOfGuests = scanner.nextInt();
+            if (!hotelService.enoughPlaces(numberOfGuests, numberOfRoomToCheckIn)) {
+                System.out.println("Pokój zbyt mały dla takiej liczby osób.");
+                return;
+            }
+            System.out.print("Podaj datę wymeldowania [rrrr-mm-dd]: ");
+            String checkOutDate = scanner.next();
+            LocalDate localDate = LocalDate.parse(checkOutDate);
+            List<Guest> guests = createListOfGuests(numberOfGuests);
+            System.out.println(hotelService.bookRoom(numberOfRoomToCheckIn, guests, localDate));
+        } catch (InputMismatchException  | NullPointerException e) {
+            System.out.println("\nNie ma takiego pokoju");
+        } catch (DateTimeParseException e) {
+            System.out.println("\nBłędny format daty");
         }
-        System.out.print("Podaj datę wymeldowania [rrrr-mm-dd]: ");
-        String checkOut = scanner.next();
-        LocalDate localDate = LocalDate.parse(checkOut);
-        List<Guest> guests = createListOfGuests(numberOfGuests);
-        System.out.println(hotelService.bookRoom(numberOfRoomToCheckIn, guests, localDate));
     }
+
 
     private void checkOut() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Podaj numer pokoju do wymeldowania: ");
-        int numberOfRoomToCheckOut = scanner.nextInt();
-        System.out.println(hotelService.unBookRoom(numberOfRoomToCheckOut));
+        try {
+            int numberOfRoomToCheckOut = scanner.nextInt();
+            System.out.println(hotelService.unBookRoom(numberOfRoomToCheckOut));
+        } catch (NullPointerException | InputMismatchException e) {
+            System.out.println("\nNie ma takiego pokoju");
+        }
     }
 }

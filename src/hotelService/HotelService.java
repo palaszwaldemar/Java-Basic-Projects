@@ -25,9 +25,6 @@ public class HotelService {
 
     String cleanRoom(int numberOfRoom) {
         Room roomToClean = hotel.getRoom(numberOfRoom);
-        if (roomToClean == null) {
-            return "Nie ma takiego pokoju";
-        }
         if (roomToClean.isClean()) {
             return "Pokój czysy / zajęty przez gościa hotelowego";
         }
@@ -38,9 +35,6 @@ public class HotelService {
 
     String bookRoom(int numberOfRoom, List<Guest> guests, LocalDate checkOutDate) {
         Room roomToBook = hotel.getRoom(numberOfRoom);
-        if (roomToBook == null) {
-            return "Nie ma takiego pokoju";
-        }
         if (!someoneIsAdult(guests)) {
             return "Nie można się zameldować. Przynajmniej jedna osoba powinna być pełnoletnia";
         }
@@ -70,9 +64,6 @@ public class HotelService {
 
     String unBookRoom(int numberOfRoom) {
         Room roomToUnbook = hotel.getRoom(numberOfRoom);
-        if (roomToUnbook == null) {
-            return "Nie ma takiego pokoju";
-        }
         if (!roomToUnbook.isAvailable() && roomToUnbook.isClean()) {
             roomToUnbook.setClean(false);
             return "Zostaleś wymeldowany z pokoju nr " + numberOfRoom;
