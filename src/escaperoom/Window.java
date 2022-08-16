@@ -8,13 +8,13 @@ public class Window extends Item {
     }
 
     @Override
-    String use(Room room, Player player, Game game) {
+    Dialog use(Room room, Player player, Game game) {
         if (isClose) {
             isClose = false;
-            return "Otwierasz okno";
+            return new Dialog("Otwierasz okno");
         } else {
             isClose = true;
-            return "Zamykasz okno";
+            return new Dialog("Zamykasz okno");
         }
     }
 }

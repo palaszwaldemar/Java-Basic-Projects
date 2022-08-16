@@ -10,16 +10,16 @@ public class Door extends Item {
 
 
     @Override
-    String use(Room room, Player player, Game game) {
+    Dialog use(Room room, Player player, Game game) {
         if (player.hasItem(key)){
             game.getRooms().remove(0);
-            game.getPlayer().getItems().clear();// TODO: 10.08.2022 dodałem czyszczenie "plecaka" po przejsciu do innego pokoju
+            game.removeAllPlayerItems();
             if (game.getRooms().isEmpty()) {
-                return "Otwierasz drzwi!";
+                return new Dialog("Otwierasz drzwi!");
             } else {
-                return "Otwierasz drzwi. Jesteś w kolejnym pokoju.";
+                return new Dialog("Otwierasz drzwi. Jesteś w kolejnym pokoju.");
             }
         }
-        return "Nie masz klucza";
+        return new Dialog("Nie masz klucza");
     }
 }

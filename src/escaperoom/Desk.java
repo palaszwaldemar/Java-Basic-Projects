@@ -13,22 +13,22 @@ public class Desk extends Item{
     }
 
     @Override
-    String use(Room room, Player player, Game game) {
+    Dialog use(Room room, Player player, Game game) {
         if (wasUse) {
             if(!isOpen) {
                 isOpen = true;
-                return "Otwierasz biurko";
+                return new Dialog("Otwierasz biurko");
             } else {
                 isOpen = false;
-                return "Zamykasz biurko";
+                return new Dialog("Zamykasz biurko");
             }
         }
         if (player.hasItem(keyToOpenDesk)) {
             player.addItem(keyToOpenDoor);
             isOpen = true;
             wasUse = true;
-            return "Znajdujesz klucz do drzwi";
+            return new Dialog("Znajdujesz klucz do drzwi");
         }
-        return "Nie masz klucza do biurka";
+        return new Dialog("Nie masz klucza do biurka");
     }
 }

@@ -23,14 +23,14 @@ public class Game {
     public Player getPlayer() {
         return player;
     }
-
-    String useItem(String choose) {
+    Dialog useItem(String choose) { // TODO: 16.08.2022 Daniel
         for (Item item : rooms.get(0).getItems()) {
             if(item.getName().equalsIgnoreCase(choose)) {
+
                return item.use(rooms.get(0), player, this);
             }
         }
-        return "Nie ma takiego przedmiotu";
+        return new Dialog("Nie ma takiego przedmiotu");
     }
 
     public boolean isGameEnd() {
@@ -49,5 +49,9 @@ public class Game {
             names.add(item.getName());
         }
         return names;
+    }
+
+    public void removeAllPlayerItems() {
+        player.clearAll();
     }
 }

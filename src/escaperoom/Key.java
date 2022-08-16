@@ -7,9 +7,9 @@ public class Key extends Item {
     }
 
     @Override
-    String use(Room room, Player player, Game game) {
+    Dialog use(Room room, Player player, Game game) {
         player.addItem(this);
         room.removeItem(this);
-        return "Podnosisz klucz";
+        return new Dialog("Podnosisz klucz");
     }
 }

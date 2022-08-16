@@ -13,10 +13,10 @@ public class Code extends Item{
     }
 
     @Override
-    String use(Room room, Player player, Game game) {
+    Dialog use(Room room, Player player, Game game) {
         player.addItem(this);
         room.removeItem(this);
         setName("Kod: " + code);
-        return "Znajdujesz kartkę z kodem: " + code;
+        return new Dialog("Znajdujesz kartkę z kodem: " + code);
     }
 }

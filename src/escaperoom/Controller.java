@@ -37,7 +37,15 @@ public abstract class Controller {
     }
 
     private void useItem(String choose) {
-        printMessage(game.useItem(choose));
+        Dialog dialog = game.useItem(choose);
+        if (!dialog.isNeedAnswer()) {
+            printMessage(dialog.getItemReaction());
+            return;
+        }
+        String answer = readAnswer(dialog.getItemReaction());
+        dialog.setAnswer(answer);
+        dialog = game.useItem(choose);
+        printMessage(dialog.getItemReaction());
     }
 
     abstract void printMessage(String message);

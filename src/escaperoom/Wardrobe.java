@@ -1,12 +1,11 @@
 package escaperoom;
 
-import java.util.Scanner;
-
 public class Wardrobe extends Item{
     private final Code codeToOpenWardrobe;
     private final Key key;
     private boolean wasUse;
     private boolean isOpen;
+    private Dialog dialog;
 
     public Wardrobe(Code code, Key key) {
         super("Szafa");
@@ -15,29 +14,44 @@ public class Wardrobe extends Item{
     }
 
     @Override
-    String use(Room room, Player player, Game game) {
+    Dialog use(Room room, Player player, Game game) {
         if (wasUse) {
             if(!isOpen) {
                 isOpen = true;
-                return "Otwierasz szafę";
+                return new Dialog("Otwierasz szafę");
             } else {
                 isOpen = false;
-                return "Zamykasz szafę";
+                return new Dialog("Zamykasz szafę");
             }
         }
-        System.out.print("Podaj kod do szafy: ");// TODO: 10.08.2022 wprowadzanie kodu przez użytkownika. Nie powinno być w tej klasie obiektu typu Scanner oraz sout ale nie wiem jak zrobić inaczej
-        Scanner scanner = new Scanner(System.in);
-        String newCode = scanner.next();
-        if (checkCode(newCode)) {
-            player.addItem(key);
-            isOpen = true;
-            wasUse = true;
-            return "Znajdujesz klucz do biurka.";
+        if (dialog != null) {
+            if (dialog.getAnswer().equals(codeToOpenWardrobe.getCode())) {
+                player.addItem(key);
+                isOpen = true;
+                wasUse = true;
+                return new Dialog("Znajdujesz klucz do biurka.");
+            } else {// TODO: 16.08.2022 dokończone
+                dialog = null;
+                return new Dialog("Błędny kod");
+            }
         }
-        return "Błędny kod";
-    }
-
-    boolean checkCode (String newCode) {
-        return newCode.equals(codeToOpenWardrobe.getCode());
+        dialog = new Dialog("Podaj kod: ", true);
+        return dialog;
     }
 }
+
+//wybor przedmiotu
+//aktywacja przedmiotu
+//rezultat
+//powtarzanie^
+
+//wybor przedmiotu
+//aktywacja przedmiotu
+//odpowiedz dla przedmiotu
+//aktywacja z odpowiedzia
+//powtarzanie
+
+//znasz poprawny kod
+//aktywujesz przejscie do stanowiska szafa
+//wybor przedmiotu (kod : 1234, kod :4444, kod: 3467
+//

@@ -11,7 +11,11 @@ public class Player {
     }
 
     public List<Item> getItems() {
-        return items;
+        return new ArrayList<>(items);
+    }
+
+    public void clearAll() {
+        items.clear();
     }
 
     @Override
