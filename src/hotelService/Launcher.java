@@ -1,4 +1,4 @@
-package hotelService;// TODO: 10.08.2022 przetestowac wersje z wyjatkami
+package hotelService;
 
 public class Launcher {
     public static void main(String[] args) {

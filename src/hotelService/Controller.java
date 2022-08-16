@@ -14,7 +14,7 @@ public class Controller {
         System.out.println("\nWITAMY W NASZYM HOTELU\n");
         System.out.println("Proszę wybrać numer opcji:");
         Scanner scanner = new Scanner(System.in);
-        int choose;
+        int choose = 0;// TODO: 11.08.2022 Porozbijać na metody
         do {
             showAvailableOptions();
             System.out.print("Twój wybór: ");
