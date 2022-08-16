@@ -17,10 +17,10 @@ public class Controller {
         do {
             showAvailableOptions();
             System.out.print("Wybierz opcję: ");
-            try {//todo czy tak może być?
+            try {
                 choose = scanner.nextInt();
             } catch (InputMismatchException e) {
-                choose = 5;//todo taki miałem pomysł na wypadek wprowadzenia liter przy wyborze opcji. Pozwala to na przejscie w switch do default.
+                choose = 5;
             }
             scanner.nextLine();
 
@@ -74,7 +74,7 @@ public class Controller {
         int numberOfCopies = scanner.nextInt();
         System.out.print("Podaj numer ISBN: ");
         String isbn = scanner.next();
-        try {//todo nie wiem czy tutaj mogę obsłużyć wyjątek
+        try {
             library.getFileReposytory().addBook(title, numberOfCopies, isbn);
         } catch (BookException e) {
             System.out.println(e.getMessage());

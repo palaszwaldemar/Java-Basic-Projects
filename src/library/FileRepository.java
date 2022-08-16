@@ -22,7 +22,7 @@ public class FileRepository {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Nie znaleziono pliku"); //todo czy printline nie powinien być w klasie Controller
+            System.out.println("Nie znaleziono pliku");
         } catch (NumberFormatException e) {
             System.out.println("Błędne dane książki");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -52,8 +52,7 @@ public class FileRepository {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("src\\library\\Ksiazki.csv", true);
             PrintWriter printWriter = new PrintWriter(fileOutputStream);
-            printWriter.print("\n");//todo czy może tak być. Dodałem przejście do nowej linii, ponieważ przy dodawaniu książki dodawało ją w ostatniej używanej linii
-            printWriter.print(title + "," + numberOfCopies + "," + isbn);
+            printWriter.println(title + "," + numberOfCopies + "," + isbn);
             printWriter.close();
         } catch (FileNotFoundException e) {
             System.out.println("Nie znaleziono pliku");
