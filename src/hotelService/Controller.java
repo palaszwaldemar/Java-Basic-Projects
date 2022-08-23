@@ -13,35 +13,49 @@ public class Controller {
     void start() {
         System.out.println("\nWITAMY W NASZYM HOTELU\n");
         System.out.println("Proszę wybrać numer opcji:");
+        // TODO: 23.08.2022 Porozbijałem na metody
+        doWhile();
+    }
+
+    private void doWhile() { // TODO: 23.08.2022 Nie wiem jak nazwać tą metodę
         Scanner scanner = new Scanner(System.in);
-        int choose = 0;// TODO: 11.08.2022 Porozbijać na metody
+        int choose;
         do {
             showAvailableOptions();
             System.out.print("Twój wybór: ");
-            try {
-                choose = scanner.nextInt();
-                switch (choose) {
-                    case 1 -> showAllRooms();
-                    case 2 -> showAvailableRooms();
-                    case 3 -> showUnavailableRooms();
-                    case 4 -> showDirtyRooms();
-                    case 5 -> cleanRoom();
-                    case 6 -> checkIn();
-                    case 7 -> checkOut();
-                    case 8 -> System.out.println("DO WIDZENIA");
-                    default -> System.out.println("\nNie ma takiej opcji do wyboru");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Podano litery zamiast liczby");
-                scanner.nextLine();
-            } catch (HotelException e) {
-                System.out.println(e.getMessage());
-            } catch (DateTimeParseException e) {
-                System.out.println("\nBłędny format daty");
-            }
-
-            System.out.println();
+            choose = tryCatch(scanner);
         } while (choose != 8);
+    }
+
+    private int tryCatch(Scanner scanner) {// TODO: 23.08.2022 Nie wiem jak nazwać tą metodę
+        try {
+            int choose = scanner.nextInt();
+            chooseOption(choose);
+            System.out.println();
+            return choose;
+        } catch (InputMismatchException e) {
+            System.out.println("\nPodano litery zamiast liczby\n");
+            scanner.nextLine();
+        } catch (HotelException e) {
+            System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("\nBłędny format daty\n");
+        }
+        return -1;// TODO: 23.08.2022 Nie wiem czy dobrze
+    }
+
+    private void chooseOption(int choose) {
+        switch (choose) {
+            case 1 -> showAllRooms();
+            case 2 -> showAvailableRooms();
+            case 3 -> showUnavailableRooms();
+            case 4 -> showDirtyRooms();
+            case 5 -> cleanRoom();
+            case 6 -> checkIn();
+            case 7 -> checkOut();
+            case 8 -> endProgram();
+            default -> System.out.println("\nNie ma takiej opcji do wyboru");
+        }
     }
 
     private void showAvailableOptions() {
@@ -141,5 +155,9 @@ public class Controller {
         System.out.print("Podaj numer pokoju do wymeldowania: ");
         int numberOfRoomToCheckOut = scanner.nextInt();
         System.out.println(hotelService.unBookRoom(numberOfRoomToCheckOut));
+    }
+
+    private void endProgram() {
+        System.out.println("\nDO WIDZENIA");
     }
 }
