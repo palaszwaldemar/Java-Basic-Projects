@@ -39,19 +39,3 @@ public class Wardrobe extends Item{
         return dialog;
     }
 }
-
-//wybor przedmiotu
-//aktywacja przedmiotu
-//rezultat
-//powtarzanie^
-
-//wybor przedmiotu
-//aktywacja przedmiotu
-//odpowiedz dla przedmiotu
-//aktywacja z odpowiedzia
-//powtarzanie
-
-//znasz poprawny kod
-//aktywujesz przejscie do stanowiska szafa
-//wybor przedmiotu (kod : 1234, kod :4444, kod: 3467
-//

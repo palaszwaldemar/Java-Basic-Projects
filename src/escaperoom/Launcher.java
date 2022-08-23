@@ -1,4 +1,4 @@
-package escaperoom;// TODO: 16.08.2022 Czy taka wersja programu jest już prawidłowa?
+package escaperoom;// TODO: 23.08.2022 SPRAWDZIĆ CZY TAKA WERSJA PROGRAMU JEST JUŻ PRAWIDŁOWA
 import java.util.Arrays;
 
 public class Launcher {
