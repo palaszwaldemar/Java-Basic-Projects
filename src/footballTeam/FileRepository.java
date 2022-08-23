@@ -44,4 +44,8 @@ public class FileRepository {
         printWriter.print("\n" + name + "," + surname + "," + dateOfBirthString + "," + numberOFGoals);
         printWriter.close();
     }
+
+    void searchPlayerFromFile(String name, String surname) {
+
+    }
 }

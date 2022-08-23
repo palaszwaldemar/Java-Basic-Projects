@@ -1,4 +1,4 @@
-package zbijak;
+package zbijak;// TODO: 16.08.2022 dokończyć
 
 public class Launcher {
     public static void main(String[] args) {

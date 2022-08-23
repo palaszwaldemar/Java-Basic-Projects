@@ -25,7 +25,7 @@ public class Hotel {
                 return room;
             }
         }
-        throw new HotelException("Nie ma takiego pokoju");
+        throw new HotelException("\nNie ma takiego pokoju\n");
     }
 
 

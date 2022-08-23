@@ -19,7 +19,7 @@ public class Controller {
                 System.out.print("\nPodaj numer z menu: ");
                 choose = scanner.nextInt();
             } catch (InputMismatchException e) {
-                choose = 5;
+                choose = -1;
             }
             System.out.println();
             switch (choose) {

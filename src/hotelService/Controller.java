@@ -58,32 +58,37 @@ public class Controller {
 
     private void showAllRooms() {
         String status;
+        System.out.println();
         for (Room room : hotelService.allRooms()) {
             if (room.isAvailable()) {
                 status = "wolny";
             } else {
                 status = "zajęty";
             }
-            System.out.println("Pokój nr: " + room.getNumberOfRoom() + " \tstatus: " + status + " \t   ilość miejsc: "
+            System.out.println("Pokój nr: " + room.getNumberOfRoom() + " \tstatus: "
+                    + status + " \t   ilość miejsc: "
                     + room.getHowManyPersonCanCheckIn());
         }
     }
 
     private void showAvailableRooms() {
+        System.out.println();
         for (Room room : hotelService.availableRooms()) {
             System.out.println("Pokój nr: " + room.getNumberOfRoom());
         }
     }
 
     private void showUnavailableRooms() {
+        System.out.println();
         for (Room room : hotelService.unavailableRooms()) {
-            System.out.println("Pokój nr: " + room.getNumberOfRoom() + "\tdata wymeldowania: " + room.getCheckOutDate());
+            System.out.println("Pokój nr: " + room.getNumberOfRoom()
+                    + "\tdata wymeldowania: " + room.getCheckOutDate());
         }
     }
 
     private void showDirtyRooms() {
         for (Room room : hotelService.dirtyRooms()) {
-            System.out.println("Pokój nr: " + room.getNumberOfRoom());
+            System.out.println("\nPokój nr: " + room.getNumberOfRoom());
         }
     }
 
