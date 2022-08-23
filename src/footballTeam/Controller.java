@@ -24,18 +24,20 @@ public class Controller {
             System.out.println();
             switch (choose) {
                 case 1 -> showPlayers();
-                case 2 -> addPlayer();
-                case 3 -> endProgram();
+                case 2 -> searchPlayer();
+                case 3 -> addPlayer();
+                case 4 -> endProgram();
                 default -> System.out.println("Nie ma takiej opcji do wyboru\n");
             }
-        } while (choose != 3);
+        } while (choose != 4);
     }
 
     private void showProgramOptions() {
         System.out.println("""
                 1. Wyświetl wszystkich dostępnych zawodników
-                2. Dodaj zawodnika do klubu
-                3. Zakończ program""");
+                2. Szukaj zawodnika
+                3. Dodaj zawodnika do klubu
+                4. Zakończ program""");
     }
 
     private void showPlayers() {
@@ -48,6 +50,26 @@ public class Controller {
             System.out.println("Nie znaleziono pliku");
         }
         System.out.println();
+    }
+
+    private void searchPlayer() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Podaj imię: ");
+        String name = scanner.nextLine();
+        System.out.print("Podaj nazwisko: ");
+        String surname = scanner.nextLine();
+        try {
+            for (Player player : manager.getPlayers()) {
+                if (player.getName().equalsIgnoreCase(name) && player.getSurname().equalsIgnoreCase(surname)) {// TODO: 17.08.2022 Czy w taki sposób mogę dostać się do pól klasy Player?
+                    System.out.println(player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
+                            ", liczba goli: " + player.getNumberOfGoals());
+                } else {
+                    System.out.println("Zawodnik nie występuje");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Nie znaleziono pliku");
+        }
     }
 
     private void addPlayer() {
