@@ -36,7 +36,7 @@ public class HotelService {
     String bookRoom(int numberOfRoom, List<Guest> guests, LocalDate checkOutDate) {
         Room roomToBook = hotel.getRoom(numberOfRoom);
         if (!someoneIsAdult(guests)) {
-            return "Nie można się zameldować. Przynajmniej jedna osoba powinna być pełnoletnia";
+            throw new HotelException("Nie można się zameldować. Przynajmniej jedna osoba powinna być pełnoletnia\n");
         }
         if (roomToBook.isAvailable()) {
             roomToBook.setAvailable(false);

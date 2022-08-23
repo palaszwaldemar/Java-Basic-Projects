@@ -123,12 +123,14 @@ public class Controller {
         System.out.print("Podaj ile osób będzie meldowanych: ");
         int numberOfGuests = scanner.nextInt();
         if (!hotelService.enoughPlaces(numberOfGuests, numberOfRoomToCheckIn)) {
-            System.out.println("Pokój zbyt mały dla takiej liczby osób.");
-            return;
+            throw new HotelException("\nPokój zbyt mały dla takiej liczby osób\n");
         }
         System.out.print("Podaj datę wymeldowania [rrrr-mm-dd]: ");
         String checkOutDate = scanner.next();
         LocalDate localDate = LocalDate.parse(checkOutDate);
+        if (localDate.isBefore(LocalDate.now())) {
+            throw new HotelException("\nData musi być póżniejsza niż " + LocalDate.now() + "\n");
+        }
         List<Guest> guests = createListOfGuests(numberOfGuests);
         System.out.println(hotelService.bookRoom(numberOfRoomToCheckIn, guests, localDate));
     }
