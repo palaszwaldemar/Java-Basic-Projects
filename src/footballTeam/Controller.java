@@ -61,12 +61,12 @@ public class Controller {
         try {
             for (Player player : manager.getPlayers()) {
                 if (player.getName().equalsIgnoreCase(name) && player.getSurname().equalsIgnoreCase(surname)) {// TODO: 17.08.2022 Czy w taki sposób mogę dostać się do pól klasy Player?
-                    System.out.println(player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
-                            ", liczba goli: " + player.getNumberOfGoals());
-                } else {
-                    System.out.println("Zawodnik nie występuje");
+                    System.out.println("\n" + player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
+                            ", liczba goli: " + player.getNumberOfGoals() + "\n");
+                    return;
                 }
             }
+            System.out.println("\nZawodnik nie występuje\n");
         } catch (FileNotFoundException e) {
             System.out.println("Nie znaleziono pliku");
         }
