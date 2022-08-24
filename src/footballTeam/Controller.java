@@ -85,7 +85,7 @@ public class Controller {
             System.out.print("Podaj liczbę zdobytych goli w karierze: ");
             int numberOfGoals = scanner.nextInt();
             manager.addPlayer(name, surname, localDate, numberOfGoals);
-            System.out.println("Dodano nowego zawodnika\n");
+            System.out.println("\nDodano nowego zawodnika\n");
         } catch (DateTimeParseException e) {
             System.out.println("\nBłędny format daty\n");
         } catch (PlayerException e) {
@@ -93,7 +93,7 @@ public class Controller {
         } catch (FileNotFoundException e) {
             System.out.println("Nie znaleziono pliku");
         } catch (InputMismatchException e) {
-            System.out.println("Liczba niepoprawna");
+            System.out.println("\nLiczba niepoprawna\n");
         }
     }
 
