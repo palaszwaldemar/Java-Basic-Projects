@@ -14,8 +14,4 @@ public class Manager {
     void addPlayer(String name, String surname, LocalDate dateOfBirth, int numberOfGoals) throws PlayerException, FileNotFoundException {
         fileRepository.addInfoPlayerToFile(name, surname, dateOfBirth, numberOfGoals);
     }
-
-    /*String showPlayer() {
-        // TODO: 17.08.2022 dokończyć
-    }*/
 }
