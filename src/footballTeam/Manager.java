@@ -11,7 +11,11 @@ public class Manager {
             return fileRepository.downloadFile();
     }
 
-    void addPlayer(String name, String surname, LocalDate dateOfBirth, int numberOfGoals) throws PlayerException, FileNotFoundException {
-        fileRepository.addInfoPlayerToFile(name, surname, dateOfBirth, numberOfGoals);
+    void addPlayer(String name, String surname, LocalDate dateOfBirth, int numberOfGoals, String position) throws PlayerException, FileNotFoundException {
+        fileRepository.addInfoPlayerToFile(name, surname, dateOfBirth, numberOfGoals, position);
+    }
+
+    List<Player> showPlayersOnPosition(String position) throws FileNotFoundException {
+        return fileRepository.checkPosition(position);
     }
 }

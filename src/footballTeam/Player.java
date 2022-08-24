@@ -7,12 +7,14 @@ public class Player {
     private final String surname;
     private final LocalDate dateOfBirth;
     private final int numberOfGoals;
+    private final String position;// TODO: 24.08.2022 Czy position może być jako enum?
 
-    public Player(String name, String surname, LocalDate dateOfBirth, int numberOfGoals) {
+    public Player(String name, String surname, LocalDate dateOfBirth, int numberOfGoals, String position) {
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
         this.numberOfGoals = numberOfGoals;
+        this.position = position;
     }
 
     public String getName() {
@@ -29,6 +31,10 @@ public class Player {
 
     public int getNumberOfGoals() {
         return numberOfGoals;
+    }
+
+    public String getPosition() {
+        return position;
     }
 
     @Override

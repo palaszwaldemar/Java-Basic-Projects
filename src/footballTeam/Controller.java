@@ -17,7 +17,7 @@ public class Controller {
         int choose;
         do {
             choose = tryCatch();
-        } while (choose != 5);
+        } while (choose != 6);
     }
 
     private int tryCatch() {// TODO: 24.08.2022 Nie wiem jak nazwać tę metodę
@@ -45,9 +45,10 @@ public class Controller {
         switch (choose) {
             case 1 -> showPlayers();
             case 2 -> searchPlayer();
-            case 3 -> addPlayer();
-            case 4 -> deletePlayer();
-            case 5 -> endProgram();
+            case 3 -> showPlayersOnSpecificPosition();// TODO: 24.08.2022 Dodałem metodę szukania po pozycji zawodnika
+            case 4 -> addPlayer();
+            case 5 -> deletePlayer();
+            case 6 -> endProgram();
             default -> System.out.println("Nie ma takiej opcji do wyboru\n");
         }
     }
@@ -56,15 +57,16 @@ public class Controller {
         System.out.println("""
                 1. Wyświetl wszystkich dostępnych zawodników
                 2. Szukaj zawodnika
-                3. Dodaj zawodnika do klubu
-                4. Usuń zawodnika z klubu
-                5. Zakończ program""");
+                3. Wyświetl zawodników z danej pozycji
+                4. Dodaj zawodnika do klubu
+                5. Usuń zawodnika z klubu
+                6. Zakończ program""");
     }
 
     private void showPlayers() throws FileNotFoundException {
         for (Player player : manager.getPlayers()) {
             System.out.println(player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
-                    ", liczba goli: " + player.getNumberOfGoals());
+                    ", liczba goli: " + player.getNumberOfGoals() + ", pozycja: " + player.getPosition());
         }
         System.out.println();
     }
@@ -82,11 +84,46 @@ public class Controller {
         for (Player player : manager.getPlayers()) {
             if (player.getName().equalsIgnoreCase(name) && player.getSurname().equalsIgnoreCase(surname)) {
                 System.out.println("\n" + player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
-                        ", liczba goli: " + player.getNumberOfGoals() + "\n");
+                        ", liczba goli: " + player.getNumberOfGoals() + ", pozycja: " + player.getPosition() + "\n");
                 return;
             }
         }
         System.out.println("\nZawodnik nie występuje\n");
+    }
+
+    private void showPlayersOnSpecificPosition() throws FileNotFoundException {
+        showPositionToChoose();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Podaj pozycję: ");
+        String position = scanner.nextLine();
+        if(isCorrectEnteredPosition(position)) {
+            System.out.println();
+            for (Player player : manager.showPlayersOnPosition(position)) {
+                System.out.println(player.getName() + " " + player.getSurname());
+            }
+            System.out.println();
+        } else {
+            System.out.println("\nNie ma takie pozycji\n");
+        }
+    }
+
+    private void showPositionToChoose() {
+        System.out.println("""
+                Pozycje możliwe do wyboru:
+                N - napastnik
+                POM - pomocnik
+                OBR - obrońca
+                BR - bramkarz""");
+    }
+
+    private boolean isCorrectEnteredPosition(String position) {
+        String[] positions = {"BR", "OBR", "POM", "N"};
+        for (String pos : positions) {
+            if(position.equalsIgnoreCase(pos)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void addPlayer() throws DateTimeParseException, PlayerException, FileNotFoundException, InputMismatchException {
@@ -100,7 +137,10 @@ public class Controller {
         LocalDate localDate = LocalDate.parse(dateOfBirth);
         System.out.print("Podaj liczbę zdobytych goli w karierze: ");
         int numberOfGoals = scanner.nextInt();
-        manager.addPlayer(name, surname, localDate, numberOfGoals);
+        System.out.print("Podaj pozycję na boisku: ");
+        scanner.nextLine();
+        String position = scanner.nextLine().toUpperCase();
+        manager.addPlayer(name, surname, localDate, numberOfGoals, position);
         System.out.println("\nDodano nowego zawodnika\n");
     }
 

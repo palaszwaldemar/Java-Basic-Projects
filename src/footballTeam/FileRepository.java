@@ -24,10 +24,10 @@ public class FileRepository {
         String[] infoPlayer = playerInfo.split(",");
         LocalDate localDate = LocalDate.parse(infoPlayer[2]);
         int numberOfGoals = Integer.parseInt(infoPlayer[3]);
-        return new Player(infoPlayer[0], infoPlayer[1], localDate, numberOfGoals);
+        return new Player(infoPlayer[0], infoPlayer[1], localDate, numberOfGoals, infoPlayer[4]);
     }
 
-    void addInfoPlayerToFile(String name, String surname, LocalDate dateOfBirth, int numberOFGoals) throws FileNotFoundException {
+    void addInfoPlayerToFile(String name, String surname, LocalDate dateOfBirth, int numberOFGoals, String position) throws FileNotFoundException {
         String dateOfBirthString = dateOfBirth.toString();
         long age = dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS);
         if (dateOfBirth.isAfter(LocalDate.now())) {
@@ -41,7 +41,23 @@ public class FileRepository {
         }
         FileOutputStream fileOutputStream = new FileOutputStream(file, true);
         PrintWriter printWriter = new PrintWriter(fileOutputStream);
-        printWriter.print("\n" + name + "," + surname + "," + dateOfBirthString + "," + numberOFGoals);
+        printWriter.print("\n" + name + "," + surname + "," + dateOfBirthString + "," + numberOFGoals + "," + position);
         printWriter.close();
+    }
+
+    List<Player> checkPosition(String position) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
+        List<Player> playersOnPosition = new ArrayList<>();
+        while (scanner.hasNextLine()) {
+            String playerInfo = scanner.nextLine();
+            String[] infoPlayer = playerInfo.split(",");
+            if (infoPlayer[4].equalsIgnoreCase(position)) {
+                playersOnPosition.add(mapPlayer(playerInfo));
+            }
+        }
+        if (playersOnPosition.isEmpty()) {
+            throw new PlayerException("Nie ma zawodników na danej pozycji\n");
+        }
+        return playersOnPosition;
     }
 }
