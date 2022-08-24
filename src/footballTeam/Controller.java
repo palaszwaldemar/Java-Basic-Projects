@@ -1,4 +1,4 @@
-package footballTeam;// TODO: 09.08.2022 dodałem obsługę wszystkich wyjątków do klasy Controler. Czy tak może być? 
+package footballTeam;// TODO: 09.08.2022 dodałem obsługę wszystkich wyjątków do klasy Controler. Czy tak może być?
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -58,9 +58,13 @@ public class Controller {
         String name = scanner.nextLine();
         System.out.print("Podaj nazwisko: ");
         String surname = scanner.nextLine();
+        showPlayer(name, surname);
+    }
+
+    private void showPlayer(String name, String surname) {
         try {
             for (Player player : manager.getPlayers()) {
-                if (player.getName().equalsIgnoreCase(name) && player.getSurname().equalsIgnoreCase(surname)) {// TODO: 17.08.2022 Czy w taki sposób mogę dostać się do pól klasy Player?
+                if (player.getName().equalsIgnoreCase(name) && player.getSurname().equalsIgnoreCase(surname)) {
                     System.out.println("\n" + player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
                             ", liczba goli: " + player.getNumberOfGoals() + "\n");
                     return;
