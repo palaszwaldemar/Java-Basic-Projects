@@ -12,11 +12,11 @@ public class FileRepository {
 
     List<Player> downloadFile() throws FileNotFoundException {
         List<Player> players = new ArrayList<>();
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String playerInfo = scanner.nextLine();
-                players.add(mapPlayer(playerInfo));
-            }
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String playerInfo = scanner.nextLine();
+            players.add(mapPlayer(playerInfo));
+        }
         return players;
     }
 

@@ -1,4 +1,5 @@
 package footballTeam;
+
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -145,7 +146,7 @@ public class Controller {
     }
 
     private void deletePlayer() {
-
+// TODO: 24.08.2022 dokończyć
     }
 
     private void endProgram() {
