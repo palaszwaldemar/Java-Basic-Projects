@@ -8,20 +8,21 @@ import java.util.Scanner;
 
 public class Controller {
     private final Manager manager = new Manager();
+    public final int END_PROGRAM = 6;
 
     void start() {// TODO: 24.08.2022 Porozbijałem na metody
         System.out.println("\nMANAGER DRUŻYNY PIŁKARSKIEJ\n");
-        doWhile();
+        interactWithMenu();
     }
 
-    private void doWhile() {// TODO: 24.08.2022 Nie wiem jak nazwać tę metodę
+    private void interactWithMenu() {
         int choose;
         do {
-            choose = tryCatch();
-        } while (choose != 6);
+            choose = handleDecision();
+        } while (choose != END_PROGRAM);
     }
 
-    private int tryCatch() {// TODO: 24.08.2022 Nie wiem jak nazwać tę metodę
+    private int handleDecision() {
         try {
             Scanner scanner = new Scanner(System.in);
             showProgramOptions();
