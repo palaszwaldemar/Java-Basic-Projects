@@ -7,7 +7,7 @@ public abstract class Item {
         this.name = name;
     }
 
-    abstract Dialog use(Room room, Player player, Game game); // TODO: 10.08.2022 uproscic zeby nie trzeba bylo tyle parametrow dodawac
+    abstract Dialog use(Mediator mediator);
 
     public String getName() {
         return name;

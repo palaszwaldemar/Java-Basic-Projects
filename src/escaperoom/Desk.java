@@ -13,7 +13,7 @@ public class Desk extends Item{
     }
 
     @Override
-    Dialog use(Room room, Player player, Game game) {
+    Dialog use(Mediator mediator) {
         if (wasUse) {
             if(!isOpen) {
                 isOpen = true;
@@ -23,8 +23,8 @@ public class Desk extends Item{
                 return new Dialog("Zamykasz biurko");
             }
         }
-        if (player.hasItem(keyToOpenDesk)) {
-            player.addItem(keyToOpenDoor);
+        if (mediator.getPlayer().hasItem(keyToOpenDesk)) {
+            mediator.getPlayer().addItem(keyToOpenDoor);
             isOpen = true;
             wasUse = true;
             return new Dialog("Znajdujesz klucz do drzwi");

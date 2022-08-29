@@ -7,9 +7,9 @@ public class Key extends Item {
     }
 
     @Override
-    Dialog use(Room room, Player player, Game game) {
-        player.addItem(this);
-        room.removeItem(this);
+    Dialog use(Mediator mediator) {
+        mediator.getPlayer().addItem(this);
+        mediator.getRoom().removeItem(this);
         return new Dialog("Podnosisz klucz");
     }
 }

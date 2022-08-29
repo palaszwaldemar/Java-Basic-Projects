@@ -14,7 +14,7 @@ public class Wardrobe extends Item{
     }
 
     @Override
-    Dialog use(Room room, Player player, Game game) {
+    Dialog use(Mediator mediator) {
         if (wasUse) {
             if(!isOpen) {
                 isOpen = true;
@@ -26,7 +26,7 @@ public class Wardrobe extends Item{
         }
         if (dialog != null) {
             if (dialog.getAnswer().equals(codeToOpenWardrobe.getCode())) {
-                player.addItem(key);
+                mediator.getPlayer().addItem(key);
                 isOpen = true;
                 wasUse = true;
                 return new Dialog("Znajdujesz klucz do biurka.");

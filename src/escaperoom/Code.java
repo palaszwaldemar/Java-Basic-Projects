@@ -13,9 +13,9 @@ public class Code extends Item{
     }
 
     @Override
-    Dialog use(Room room, Player player, Game game) {
-        player.addItem(this);
-        room.removeItem(this);
+    Dialog use(Mediator mediator) {
+        mediator.getPlayer().addItem(this);
+        mediator.getRoom().removeItem(this);
         setName("Kod: " + code);
         return new Dialog("Znajdujesz kartkę z kodem: " + code);
     }

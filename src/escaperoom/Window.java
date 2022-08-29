@@ -8,7 +8,7 @@ public class Window extends Item {
     }
 
     @Override
-    Dialog use(Room room, Player player, Game game) {
+    Dialog use(Mediator mediator) {
         if (isClose) {
             isClose = false;
             return new Dialog("Otwierasz okno");
