@@ -9,25 +9,25 @@ import java.util.Scanner;
 
 public class Controller {
     private final HotelService hotelService = new HotelService();
+    private static final int CLOSE_PROGRAM = 8;
 
     void start() {
         System.out.println("\nWITAMY W NASZYM HOTELU\n");
         System.out.println("Proszę wybrać numer opcji:");
-        // TODO: 23.08.2022 Porozbijałem na metody
-        doWhile();
+        interactWithMenu();
     }
 
-    private void doWhile() { // TODO: 23.08.2022 Nie wiem jak nazwać tą metodę
+    private void interactWithMenu() {
         Scanner scanner = new Scanner(System.in);
         int choose;
         do {
             showAvailableOptions();
             System.out.print("Twój wybór: ");
-            choose = tryCatch(scanner);
-        } while (choose != 8);
+            choose = handleDecision(scanner);
+        } while (choose != CLOSE_PROGRAM);
     }
 
-    private int tryCatch(Scanner scanner) {// TODO: 23.08.2022 Nie wiem jak nazwać tą metodę
+    private int handleDecision(Scanner scanner) {
         try {
             int choose = scanner.nextInt();
             chooseOption(choose);
