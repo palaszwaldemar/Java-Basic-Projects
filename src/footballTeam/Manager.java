@@ -7,15 +7,15 @@ import java.util.List;
 public class Manager {
     private final FileRepository fileRepository = new FileRepository();
 
-    List<Player> getPlayers() throws FileNotFoundException {
+    List<Player> getPlayers() {
             return fileRepository.downloadFile();
     }
 
-    void addPlayer(String name, String surname, LocalDate dateOfBirth, int numberOfGoals, String position) throws PlayerException, FileNotFoundException {
+    void addPlayer(String name, String surname, LocalDate dateOfBirth, int numberOfGoals, String position) {
         fileRepository.addInfoPlayerToFile(name, surname, dateOfBirth, numberOfGoals, position);
     }
 
-    List<Player> showPlayersOnPosition(String position) throws FileNotFoundException {
+    List<Player> findPlayersOnPosition(Position position){
         return fileRepository.checkPosition(position);
     }
 }
