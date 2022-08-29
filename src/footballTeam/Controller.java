@@ -65,7 +65,7 @@ public class Controller {
                 6. Zakończ program""");
     }
 
-    private void showPlayers() throws FileNotFoundException {
+    private void showPlayers(){
         for (Player player : manager.getPlayers()) {
             System.out.println(player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
                     ", liczba goli: " + player.getNumberOfGoals() + ", pozycja: " + player.getPosition());
@@ -73,7 +73,7 @@ public class Controller {
         System.out.println();
     }
 
-    private void searchPlayer() throws FileNotFoundException {
+    private void searchPlayer() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Podaj imię: ");
         String name = scanner.nextLine();
@@ -82,7 +82,7 @@ public class Controller {
         showPlayer(name, surname);
     }
 
-    private void showPlayer(String name, String surname) throws FileNotFoundException {
+    private void showPlayer(String name, String surname) {
         for (Player player : manager.getPlayers()) {
             if (player.getName().equalsIgnoreCase(name) && player.getSurname().equalsIgnoreCase(surname)) {
                 System.out.println("\n" + player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
@@ -93,7 +93,7 @@ public class Controller {
         System.out.println("\nZawodnik nie występuje\n");
     }
 
-    private void showPlayersOnSpecificPosition() throws FileNotFoundException {
+    private void showPlayersOnSpecificPosition(){
         showPositionToChoose();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Podaj pozycję: ");
