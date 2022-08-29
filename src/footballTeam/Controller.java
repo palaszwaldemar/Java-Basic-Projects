@@ -69,8 +69,13 @@ public class Controller {
 
     private void showPlayers(){
         for (Player player : manager.getPlayers()) {
-            System.out.println(player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
-                    ", liczba goli: " + player.getNumberOfGoals() + ", pozycja: " + player.getPosition());
+            //printf
+            System.out.printf("%s %s , data urodzenia: %s liczba goli: %d pozycja: %s\n",
+                    player.getName(),player.getSurname(),player.getDateOfBirth(),player.getNumberOfGoals(),player.getPosition());
+
+            //%s - String
+            //%d - liczba całkowita
+            //%f - liczba dziesiętna
         }
         System.out.println();
     }
