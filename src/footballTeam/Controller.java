@@ -10,7 +10,7 @@ public class Controller {
     private final Manager manager = new Manager();
     public final int END_PROGRAM = 6;
 
-    void start() {// TODO: 24.08.2022 Porozbijałem na metody
+    void start() {
         System.out.println("\nMANAGER DRUŻYNY PIŁKARSKIEJ\n");
         interactWithMenu();
     }
@@ -47,7 +47,7 @@ public class Controller {
         switch (choose) {
             case 1 -> showPlayers();
             case 2 -> searchPlayer();
-            case 3 -> showPlayersOnSpecificPosition();// TODO: 24.08.2022 Dodałem metodę szukania po pozycji zawodnika
+            case 3 -> showPlayersOnSpecificPosition();
             case 4 -> addPlayer();
             case 5 -> deletePlayer();
             case 6 -> endProgram();

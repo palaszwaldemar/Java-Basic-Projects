@@ -23,9 +23,6 @@ public class Game {
     public Player getPlayer() {
         return player;
     }
-    Dialog useItem(String choose) { // TODO: 16.08.2022 Daniel
-        for (Item item : rooms.get(0).getItems()) {
-            if(item.getName().equalsIgnoreCase(choose)) {
 
                return item.use(rooms.get(0), player, this);
             }

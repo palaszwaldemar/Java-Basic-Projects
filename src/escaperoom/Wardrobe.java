@@ -30,7 +30,7 @@ public class Wardrobe extends Item{
                 isOpen = true;
                 wasUse = true;
                 return new Dialog("Znajdujesz klucz do biurka.");
-            } else {// TODO: 16.08.2022 dokończone
+            } else {
                 dialog = null;
                 return new Dialog("Błędny kod");
             }

@@ -1,4 +1,4 @@
-package escaperoom;// TODO: 23.08.2022 SPRAWDZIĆ CZY TAKA WERSJA PROGRAMU JEST JUŻ PRAWIDŁOWA
+package escaperoom;// TODO: rozbudować
 import java.util.Arrays;
 
 public class Launcher {
