@@ -39,6 +39,8 @@ public class Controller {
             System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println("\nNiepoprawne dane\n");
+        } catch (IllegalArgumentException e) {
+            System.out.println("\nNie ma takiej pozycji\n");
         }
         return -1;
     }
@@ -97,16 +99,13 @@ public class Controller {
         showPositionToChoose();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Podaj pozycję: ");
-        String position = scanner.nextLine();
-        if(isCorrectEnteredPosition(position)) {
-            System.out.println();
-            for (Player player : manager.showPlayersOnPosition(position)) {
-                System.out.println(player.getName() + " " + player.getSurname());
-            }
-            System.out.println();
-        } else {
-            System.out.println("\nNie ma takie pozycji\n");
+        String position = scanner.nextLine().toUpperCase();
+        Position positionEnum = Position.valueOf(position);
+        System.out.println();
+        for (Player player : manager.findPlayersOnPosition(positionEnum)) {
+            System.out.println(player.getName() + " " + player.getSurname());
         }
+        System.out.println();
     }
 
     private void showPositionToChoose() {
@@ -118,17 +117,7 @@ public class Controller {
                 BR - bramkarz""");
     }
 
-    private boolean isCorrectEnteredPosition(String position) {
-        String[] positions = {"BR", "OBR", "POM", "N"};
-        for (String pos : positions) {
-            if(position.equalsIgnoreCase(pos)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void addPlayer() throws DateTimeParseException, PlayerException, FileNotFoundException, InputMismatchException {
+    private void addPlayer() throws DateTimeParseException, PlayerException, InputMismatchException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Podaj imię: ");
         String name = scanner.nextLine();

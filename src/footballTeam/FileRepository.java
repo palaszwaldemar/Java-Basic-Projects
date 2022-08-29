@@ -25,7 +25,8 @@ public class FileRepository {
         String[] infoPlayer = playerInfo.split(",");
         LocalDate localDate = LocalDate.parse(infoPlayer[2]);
         int numberOfGoals = Integer.parseInt(infoPlayer[3]);
-        return new Player(infoPlayer[0], infoPlayer[1], localDate, numberOfGoals, infoPlayer[4]);
+        Position position = Position.valueOf(infoPlayer[4]);
+        return new Player(infoPlayer[0], infoPlayer[1], localDate, numberOfGoals, position);
     }
 
     void addInfoPlayerToFile(String name, String surname, LocalDate dateOfBirth, int numberOFGoals, String position) {
@@ -52,10 +53,11 @@ public class FileRepository {
 
     List<Player> checkPosition(Position position) {
         List<Player> playersOnPosition = new ArrayList<>();
+        Scanner scanner = createScanner();
         while (scanner.hasNextLine()) {
             String playerInfo = scanner.nextLine();
             String[] infoPlayer = playerInfo.split(",");
-            if (infoPlayer[4].equalsIgnoreCase(position)) {
+            if (infoPlayer[4].equalsIgnoreCase(position.name())) {
                 playersOnPosition.add(mapPlayer(playerInfo));
             }
         }
