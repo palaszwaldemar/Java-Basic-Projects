@@ -41,7 +41,7 @@ public class Controller {
         } catch (DateTimeParseException e) {
             System.out.println("\nBłędny format daty\n");
         }
-        return -1;// TODO: 23.08.2022 Nie wiem czy dobrze
+        return -1;
     }
 
     private void chooseOption(int choose) {
