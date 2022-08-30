@@ -92,8 +92,8 @@ public class Controller {
     private void showPlayer(String name, String surname) {
         for (Player player : manager.getPlayers()) {
             if (player.getName().equalsIgnoreCase(name) && player.getSurname().equalsIgnoreCase(surname)) {
-                System.out.println("\n" + player.getName() + " " + player.getSurname() + ", data urodzenia: " + player.getDateOfBirth() +
-                        ", liczba goli: " + player.getNumberOfGoals() + ", pozycja: " + player.getPosition() + "\n");
+                System.out.printf("\n%s %s, data urodzenia: %s, liczba goli: %d, pozycja: %s\n\n",
+                        player.getName(), player.getSurname(), player.getDateOfBirth(), player.getNumberOfGoals(), player.getPosition());
                 return;
             }
         }
