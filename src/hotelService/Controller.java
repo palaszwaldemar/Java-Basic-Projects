@@ -149,7 +149,6 @@ public class Controller {
         System.out.println(hotelService.bookRoom(numberOfRoomToCheckIn, guests, localDate));
     }
 
-
     private void checkOut() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Podaj numer pokoju do wymeldowania: ");

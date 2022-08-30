@@ -1,6 +1,5 @@
 package escaperoom;
 
-
 import java.util.Scanner;
 
 //tylko tutaj sout i scanner

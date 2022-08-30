@@ -51,7 +51,7 @@ public class Controller {
             case 2 -> searchPlayer();
             case 3 -> showPlayersOnSpecificPosition();
             case 4 -> addPlayer();
-            case 5 -> deletePlayer();
+            case 5 -> deletePlayer();// CHECK:  dodana opcja wykasowania zawodnika z klubu
             case 6 -> endProgram();
             default -> System.out.println("Nie ma takiej opcji do wyboru\n");
         }
@@ -67,7 +67,7 @@ public class Controller {
                 6. Zakończ program""");
     }
 
-    private void showPlayers(){
+    private void showPlayers() {
         for (Player player : manager.getPlayers()) {
             //printf
             System.out.printf("%s %s , data urodzenia: %s liczba goli: %d pozycja: %s\n",
@@ -100,7 +100,7 @@ public class Controller {
         System.out.println("\nZawodnik nie występuje\n");
     }
 
-    private void showPlayersOnSpecificPosition(){
+    private void showPlayersOnSpecificPosition() {
         showPositionToChoose();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Podaj pozycję: ");

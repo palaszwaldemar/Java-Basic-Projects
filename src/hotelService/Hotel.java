@@ -28,7 +28,6 @@ public class Hotel {
         throw new HotelException("\nNie ma takiego pokoju\n");
     }
 
-
     List<Room> getAllRooms() {
         return rooms;
     }

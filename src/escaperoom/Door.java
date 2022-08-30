@@ -8,7 +8,6 @@ public class Door extends Item {
         this.key = key;
     }
 
-
     @Override
     Dialog use(Mediator mediator) {
         if (mediator.getPlayer().hasItem(key)){
