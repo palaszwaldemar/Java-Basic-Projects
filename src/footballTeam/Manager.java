@@ -17,4 +17,15 @@ public class Manager {
     List<Player> findPlayersOnPosition(Position position){
         return fileRepository.checkPosition(position);
     }
+
+    String deletePlayer(String name, String surname) {
+        List<Player> players = fileRepository.downloadFile();
+        for (Player player : players) {
+            if (name.equalsIgnoreCase(player.getName()) && surname.equalsIgnoreCase(player.getSurname())) {
+                fileRepository.replaceFiles(name, surname);
+                return "\nZawodnik został usunięty\n";
+            }
+        }
+        return "\nNie ma takiego zawodnika\n";
+    }
 }

@@ -10,6 +10,13 @@ import java.util.Scanner;
 public class FileRepository {
     private final File file = new File("src\\footballTeam\\Players.csv");
 
+    private Scanner createScanner() {
+        try {
+            return new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new PlayerException("Plik nie istnieje\n");
+        }
+    }
 
     List<Player> downloadFile() {
         List<Player> players = new ArrayList<>();
@@ -18,6 +25,7 @@ public class FileRepository {
             String playerInfo = scanner.nextLine();
             players.add(mapPlayer(playerInfo));
         }
+        scanner.close();
         return players;
     }
 
@@ -64,14 +72,33 @@ public class FileRepository {
         if (playersOnPosition.isEmpty()) {
             throw new PlayerException("Nie ma zawodników na danej pozycji\n");
         }
+        scanner.close();
         return playersOnPosition;
     }
 
-    private Scanner createScanner() {
+    void replaceFiles(String name, String surname) {// CHECK:  problem z usunięciem zawodnika a następnie próbą dodania nowego
+        File aditionalFile = new File("src\\footballTeam\\Players1.csv");
         try {
-            return new Scanner(file);
+            Scanner mainFileScanner = createScanner();
+            FileOutputStream fileOutputStreamOfAditionalFile = new FileOutputStream(aditionalFile, true);
+            PrintWriter printWriterOfAditionalFile = new PrintWriter(fileOutputStreamOfAditionalFile);
+            while (mainFileScanner.hasNextLine()) {
+                String lineInFile = mainFileScanner.nextLine();
+                String[] line = lineInFile.split(",");
+                if (!(line[0].equalsIgnoreCase(name) && line[1].equalsIgnoreCase(surname))) {
+                    printWriterOfAditionalFile.println(lineInFile);
+                }
+            }
+            mainFileScanner.close();
+            if (!file.delete()) {
+                throw new PlayerException("Błąd w usuwaniu zawodnika zawodnika");
+            }
+            printWriterOfAditionalFile.close();
+            if (!aditionalFile.renameTo(new File("src\\footballTeam\\Players.csv"))) {
+                throw new PlayerException("Błąd w usuwaniu zawodnika");
+            }
         } catch (FileNotFoundException e) {
-            throw new PlayerException("Problem z zapisem do pliku");
+            throw new PlayerException("Nie znaleziono pliku");
         }
     }
 }

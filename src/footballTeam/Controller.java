@@ -134,14 +134,18 @@ public class Controller {
         System.out.print("Podaj liczbę zdobytych goli w karierze: ");
         int numberOfGoals = scanner.nextInt();
         System.out.print("Podaj pozycję na boisku: ");
-        scanner.nextLine();
-        String position = scanner.nextLine().toUpperCase();
-        manager.addPlayer(name, surname, localDate, numberOfGoals, position);
+        String position = scanner.next();
+        manager.addPlayer(name, surname, localDate, numberOfGoals, position.toUpperCase());
         System.out.println("\nDodano nowego zawodnika\n");
     }
 
     private void deletePlayer() {
-// TODO: 24.08.2022 dokończyć
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Podaj imię zawodnika: ");
+        String name = scanner.nextLine();
+        System.out.print("Podaj nazwisko zawodnika: ");
+        String surname = scanner.nextLine();
+        System.out.println(manager.deletePlayer(name, surname));
     }
 
     private void endProgram() {
