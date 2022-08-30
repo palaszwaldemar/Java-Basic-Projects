@@ -1,9 +1,9 @@
 package escaperoom;
 
 public class Mediator {
-    private Game game;
-    private Player player;
-    private Room room;
+    private final Game game;
+    private final Player player;
+    private final Room room;
 
     public Mediator(Game game, Player player, Room room) {
         this.game = game;
