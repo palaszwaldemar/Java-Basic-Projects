@@ -1,6 +1,5 @@
 package escaperoom;
 
-
 public abstract class Controller {
     private final Game game = new Game();
 
