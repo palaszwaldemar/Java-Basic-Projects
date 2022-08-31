@@ -19,7 +19,6 @@ public class Door extends Item {
                 return new Dialog("Otwierasz drzwi. Jesteś w kolejnym pokoju.");
             }
         }
-        return new Dialog("Nie masz klucza");// TODO: 31.08.2022 test
-        // CHECK:  test
+        return new Dialog("Nie masz klucza");
     }
 }
