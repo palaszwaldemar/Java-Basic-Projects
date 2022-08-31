@@ -13,4 +13,4 @@ public class Launcher {
         // - komputer rusza się co dwa ruchy gracza
         // - gra kończy się jak gracz zbije wszystkich lub sam zostanie zbity
     }
-}
+}// todo: 31.08.2022 test
