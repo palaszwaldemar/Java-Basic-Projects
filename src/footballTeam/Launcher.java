@@ -1,4 +1,4 @@
-package footballTeam;// TODO: 16.08.2022 dodać funkcję usunięcia zawodnika
+package footballTeam;
 
 public class Launcher {
     public static void main(String[] args) {
