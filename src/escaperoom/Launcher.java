@@ -1,4 +1,4 @@
-package escaperoom;// todo: 31.08.2022 rozbudować
+package escaperoom;//todo rozbudować
 import java.util.Arrays;
 
 public class Launcher {

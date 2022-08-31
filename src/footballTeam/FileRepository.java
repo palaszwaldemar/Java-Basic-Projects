@@ -76,7 +76,7 @@ public class FileRepository {
         return playersOnPosition;
     }
 
-    void replaceFiles(String name, String surname) {// check:  problem z usunięciem zawodnika a następnie próbą dodania nowego
+    void replaceFiles(String name, String surname) {//check problem z usunięciem zawodnika a następnie próbą dodania nowego
         File aditionalFile = new File("src\\footballTeam\\Players1.csv");
         try {
             Scanner mainFileScanner = createScanner();
