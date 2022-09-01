@@ -11,10 +11,6 @@ public class Mediator {
         this.room = room;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
     public Player getPlayer() {
         return player;
     }
@@ -25,5 +21,13 @@ public class Mediator {
 
     public void goToNextRoom() {
         game.removeActualRoom();
+    }
+
+    void removeAllPlayersItems() {
+        player.clearAll();
+    }
+
+    boolean areMoreRooms() {
+        return game.getRooms().isEmpty();
     }
 }

@@ -59,8 +59,4 @@ public class Game {
     private Room getActualRoom() {
         return rooms.get(0);
     }
-
-    public void removeAllPlayerItems() {
-        player.clearAll();
-    }
 }
