@@ -76,7 +76,7 @@ public class FileRepository {
         return playersOnPosition;
     }
 
-    void replaceFiles(String name, String surname) {//check problem z usunięciem zawodnika a następnie próbą dodania nowego
+    void deletePlayerFromFile(String name, String surname) {//check problem z usunięciem zawodnika a następnie próbą dodania nowego
         File aditionalFile = new File("src\\footballTeam\\Players1.csv");
         try {
             Scanner mainFileScanner = createScanner();
@@ -91,7 +91,7 @@ public class FileRepository {
             }
             mainFileScanner.close();
             if (!file.delete()) {
-                throw new PlayerException("Błąd w usuwaniu zawodnika zawodnika");
+                throw new PlayerException("Błąd w usuwaniu zawodnika");
             }
             printWriterOfAditionalFile.close();
             if (!aditionalFile.renameTo(new File("src\\footballTeam\\Players.csv"))) {

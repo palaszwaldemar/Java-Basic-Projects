@@ -40,7 +40,7 @@ public class Controller {
         } catch (InputMismatchException e) {
             System.out.println("\nNiepoprawne dane\n");
         } catch (IllegalArgumentException e) {
-            System.out.println("\nNie ma takiej pozycji\n");
+            System.out.println("\nBłędna pozycja zawodnika\n");
         }
         return -1;
     }

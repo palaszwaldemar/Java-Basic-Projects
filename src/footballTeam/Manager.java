@@ -22,7 +22,7 @@ public class Manager {
         List<Player> players = fileRepository.downloadFile();
         for (Player player : players) {
             if (name.equalsIgnoreCase(player.getName()) && surname.equalsIgnoreCase(player.getSurname())) {
-                fileRepository.replaceFiles(name, surname);
+                fileRepository.deletePlayerFromFile(name, surname);
                 return "\nZawodnik został usunięty\n";
             }
         }
