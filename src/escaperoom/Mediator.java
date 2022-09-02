@@ -27,7 +27,7 @@ public class Mediator {
         player.clearAll();
     }
 
-    boolean areMoreRooms() {
+    boolean isTheLasRoom() {
         return game.getRooms().isEmpty();
     }
 }

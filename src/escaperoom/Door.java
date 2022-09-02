@@ -13,7 +13,7 @@ public class Door extends Item {
         if (mediator.getPlayer().hasItem(key)){
             mediator.goToNextRoom();//check poprawione aby nie było zbyt głębokiego kopania
             mediator.removeAllPlayersItems();
-            if (mediator.areMoreRooms()) {
+            if (mediator.isTheLasRoom()) {
                 return new Dialog("Otwierasz drzwi!");
             } else {
                 return new Dialog("Otwierasz drzwi. Jesteś w kolejnym pokoju.");
