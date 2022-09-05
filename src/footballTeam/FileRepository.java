@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileRepository {
-    private final File file = new File("src\\footballTeam\\Players.csv");
+    private static final String PATH_PREFIX = "src\\footballTeam\\";
+    private final File file = new File(PATH_PREFIX + "Players.csv");
+
 
     private Scanner createScanner() {
         try {
@@ -76,43 +78,24 @@ public class FileRepository {
         return playersOnPosition;
     }
 
-    boolean checkCorrectnessAddedLines(String descriptionOfPlayer, PrintWriter printWriterOfTemporaryFile, boolean correctnessAddedLines) {
-        if (!correctnessAddedLines) {//check dodany warunek sprawdzający w celu poprwanego przechodzenia printwritera do nowej linii
-            printWriterOfTemporaryFile.print(descriptionOfPlayer);
-        } else {
-            printWriterOfTemporaryFile.print("\n" + descriptionOfPlayer);
+    void deletePlayerFromFile(Player playerToRemove) {
+        List<Player> players = downloadFile();
+        boolean removed = players.remove(playerToRemove);
+        if (!removed) {
+            throw new PlayerException("\nNie było takiego zawodnika\n");
         }
-        return true;
+        saveAllPlayers(players);
     }
 
-    void copyLinesToTemporaryFile(Scanner mainFileScanner, PrintWriter printWriterOfTemporaryFile, String name, String surname) {
-        boolean correctnessAddedLines = false;
-        while (mainFileScanner.hasNextLine()) {
-            String descriptionOfPlayer = mainFileScanner.nextLine();
-            String[] line = descriptionOfPlayer.split(",");
-            if (!(line[0].equalsIgnoreCase(name) && line[1].equalsIgnoreCase(surname))) {
-                correctnessAddedLines = checkCorrectnessAddedLines(descriptionOfPlayer, printWriterOfTemporaryFile, correctnessAddedLines);
-            }
-        }
-    }
-
-    void deletePlayerFromFile(String name, String surname) {
-        File temporaryFile = new File("src\\footballTeam\\Players1.csv");
+    private void saveAllPlayers(List<Player> players) {
         try {
-            Scanner mainFileScanner = createScanner();
-            FileOutputStream fileOutputStreamOfTemporaryFile = new FileOutputStream(temporaryFile, true);
-            PrintWriter printWriterOfTemporaryFile = new PrintWriter(fileOutputStreamOfTemporaryFile);
-            copyLinesToTemporaryFile(mainFileScanner, printWriterOfTemporaryFile, name, surname);
-            mainFileScanner.close();
-            if (!file.delete()) {
-                throw new PlayerException("Błąd w usuwaniu zawodnika");
+            PrintWriter out = new PrintWriter(file);
+            for (Player player : players) {
+                out.println(player.toCsv());
             }
-            printWriterOfTemporaryFile.close();
-            if (!temporaryFile.renameTo(new File("src\\footballTeam\\Players.csv"))) {
-                throw new PlayerException("Błąd w usuwaniu zawodnika");
-            }
+            out.close();
         } catch (FileNotFoundException e) {
-            throw new PlayerException("Nie znaleziono pliku");
+            throw new PlayerException("Błąd w zapisie zawodników");
         }
     }
 }

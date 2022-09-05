@@ -145,7 +145,8 @@ public class Controller {
         String name = scanner.nextLine();
         System.out.print("Podaj nazwisko zawodnika: ");
         String surname = scanner.nextLine();
-        System.out.println(manager.deletePlayer(name, surname));
+        manager.deletePlayer(name, surname);
+        System.out.println("\nUsunięto\n");
     }
 
     private void endProgram() {

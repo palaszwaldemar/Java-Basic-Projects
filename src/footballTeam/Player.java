@@ -18,6 +18,14 @@ public class Player {
         this.position = position;
     }
 
+    public Player(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+        dateOfBirth = null;
+        numberOfGoals = 0;
+        position = null;
+    }
+
     public String getName() {
         return name;
     }
@@ -36,6 +44,23 @@ public class Player {
 
     public Position getPosition() {
         return position;
+    }
+
+    @Override
+    public boolean equals(Object o) {//check gdzie jest wykorzystana ta metdoda?
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(name, player.name) && Objects.equals(surname, player.surname);  //name.equals(player.name)
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname);
+    }//check co to za metoda i gdzie jest wykorzystana?
+
+    public String toCsv() {
+        return String.format("%s,%s,%s,%d,%s", name, surname, dateOfBirth, numberOfGoals, position);
     }
 
     @Override
