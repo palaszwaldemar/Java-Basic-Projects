@@ -11,7 +11,7 @@ public class Door extends Item {
     @Override
     Dialog use(Mediator mediator) {
         if (mediator.getPlayer().hasItem(key)){
-            mediator.goToNextRoom();//check poprawione aby nie było zbyt głębokiego kopania
+            mediator.goToNextRoom();
             mediator.removeAllPlayersItems();
             if (mediator.isTheLasRoom()) {
                 return new Dialog("Otwierasz drzwi!");
