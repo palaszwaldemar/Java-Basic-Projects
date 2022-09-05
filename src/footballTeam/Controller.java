@@ -51,7 +51,7 @@ public class Controller {
             case 2 -> searchPlayer();
             case 3 -> showPlayersOnSpecificPosition();
             case 4 -> addPlayer();
-            case 5 -> deletePlayer();//check dodana opcja wykasowania zawodnika z klubu
+            case 5 -> deletePlayer();
             case 6 -> endProgram();
             default -> System.out.println("Nie ma takiej opcji do wyboru\n");
         }

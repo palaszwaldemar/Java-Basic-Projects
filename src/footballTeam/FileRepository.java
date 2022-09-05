@@ -52,7 +52,7 @@ public class FileRepository {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file, true);
             PrintWriter printWriter = new PrintWriter(fileOutputStream);
-            printWriter.print("\n" + name + "," + surname + "," + dateOfBirthString + "," + numberOFGoals + "," + position);
+            printWriter.println(name + "," + surname + "," + dateOfBirthString + "," + numberOFGoals + "," + position);
             printWriter.close();
         } catch (FileNotFoundException e) {
             throw new PlayerException("Problem z zapisem do pliku");
