@@ -1,42 +1,55 @@
 package zbijak;
 
+import zbijak.players.HumanPlayer;
+import zbijak.players.NpcPlayer;
+import zbijak.players.Player;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
     private final List<Player> players = new ArrayList<>();
 
     public Game() {
-        Random random = new Random();
-        int setXOnBoard = random.nextInt(9) + 1;
-        int setYOnBoard = random.nextInt(9) + 1;
-        HumanPlayer humanPlayer = new HumanPlayer("x");
-        NpcPlayer npcPlayer1 = new NpcPlayer("^");
-        NpcPlayer npcPlayer2 = new NpcPlayer("^");
-        NpcPlayer npcPlayer3 = new NpcPlayer("^");
-        humanPlayer.setX(setXOnBoard);
-        humanPlayer.setY(setYOnBoard);
+        NpcPlayer npcPlayer1 = new NpcPlayer(0, 0);
+        NpcPlayer npcPlayer2 = new NpcPlayer(0, 9);
+        NpcPlayer npcPlayer3 = new NpcPlayer(9, 0);
+        HumanPlayer humanPlayer = new HumanPlayer(9, 9);
+
+        players.add(npcPlayer1);
+        players.add(npcPlayer2);
+        players.add(npcPlayer3);
         players.add(humanPlayer);
     }
 
-    void printBoard() {
-        System.out.println();
-        for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 10; j++) {
-                for (int k = 0; k < players.size(); k++) {
-                    if (players.get(k).getX() == j && players.get(k).getY() == i) {
-                        System.out.print(players.get(k).getName() + "  ");
-                    } else {
-                        System.out.print("*  ");
-                    }
-                }
+    void showTable() {
+        for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 10; x++) {
+                System.out.print(getFieldText(x, y) + " ");
             }
             System.out.println();
         }
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    private String getFieldText(int x, int y) {
+        for (Player player : players) {
+            if (x == player.getX() && y == player.getY()) {
+                return player.getName();
+            }
+        }
+        return "*";
+    }
+
+    void move(){
+        for (Player player : players) {
+            if(player.isHuman()) {
+                Scanner scanner = new Scanner(System.in);
+                String direction = scanner.nextLine();
+                player.move(direction);
+            }else{
+                player.move("");
+            }
+        }
     }
 }
