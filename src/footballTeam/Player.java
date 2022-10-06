@@ -46,6 +46,7 @@ public class Player {
         return position;
     }
 
+
     @Override
     public boolean equals(Object o) {//check gdzie jest wykorzystana ta metdoda?
         if (this == o) return true;
