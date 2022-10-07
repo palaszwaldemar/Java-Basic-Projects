@@ -2,7 +2,7 @@ package hotelService;
 
 import java.util.Scanner;
 
-public class ControllerConsole extends Controller{
+public class ControllerConsole extends Controller {
     @Override
     void printMessage(String message) {
         System.out.println(message);

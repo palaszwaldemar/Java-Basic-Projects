@@ -89,7 +89,7 @@ public abstract class Controller {
     }
 
     private void showUnavailableRooms() {
-        StringBuilder show  = new StringBuilder();
+        StringBuilder show = new StringBuilder();
         for (Room room : hotelService.unavailableRooms()) {
             show.append("Pokój nr: ").append(room.getNumberOfRoom()).append("\t data wymeldowania: ").
                     append(room.getCheckOutDate()).append("\n");
