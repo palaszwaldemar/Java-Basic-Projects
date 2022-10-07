@@ -1,6 +1,6 @@
 package escaperoom;
 
-public class Wardrobe extends Item{
+public class Wardrobe extends Item {
     private final Code codeToOpenWardrobe;
     private final Key key;
     private boolean wasUse;
@@ -16,7 +16,7 @@ public class Wardrobe extends Item{
     @Override
     Dialog use(Mediator mediator) {
         if (wasUse) {
-            if(!isOpen) {
+            if (!isOpen) {
                 isOpen = true;
                 return new Dialog("Otwierasz szafę");
             } else {
