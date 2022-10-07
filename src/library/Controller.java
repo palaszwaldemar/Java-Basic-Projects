@@ -60,7 +60,7 @@ public class Controller {
         for (Book book : library.getBooks()) {
             if (book.getTitle().contains(name)) {
                 System.out.println("Tytuł: " + book.getTitle() +
-                "\nliczba kopii: " + book.getNumberOfCopies() +
+                        "\nliczba kopii: " + book.getNumberOfCopies() +
                         "\nISBN: " + book.getIsbn() + "\n");
             }
         }
@@ -79,7 +79,7 @@ public class Controller {
         } catch (BookException e) {
             System.out.println(e.getMessage());
         }
-        Book book = new Book(title,numberOfCopies, isbn);
+        Book book = new Book(title, numberOfCopies, isbn);
         library.getBooks().add(book);
     }
 }

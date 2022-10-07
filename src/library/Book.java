@@ -10,6 +10,7 @@ public class Book {
         this.numberOfCopies = numberOfCopies;
         this.isbn = isbn;
     }
+
     public String getTitle() {
         return title;
     }
