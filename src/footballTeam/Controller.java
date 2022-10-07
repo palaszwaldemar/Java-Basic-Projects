@@ -4,14 +4,13 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
-public class Controller {
+public abstract class Controller {
     private final Manager manager = new Manager();
     public final int END_PROGRAM = 6;
 
     void start() {
-        System.out.println("\nMANAGER DRUŻYNY PIŁKARSKIEJ\n");
+        printMessage("\nMANAGER DRUŻYNY PIŁKARSKIEJ\n");
         interactWithMenu();
     }
 
@@ -24,23 +23,19 @@ public class Controller {
 
     private int handleDecision() {
         try {
-            Scanner scanner = new Scanner(System.in);
-            showProgramOptions();
-            System.out.print("\nPodaj numer z menu: ");
-            int choose = scanner.nextInt();
-            System.out.println();
+            int choose = Integer.parseInt(readAnswer(showProgramOptions() + "\nPodaj numer z menu: "));
             chooseProgramOption(choose);
             return choose;
         } catch (FileNotFoundException e) {
-            System.out.println("Nie znaleziono pliku");
+            printMessage("Nie znaleziono pliku\n");
         } catch (DateTimeParseException e) {
-            System.out.println("\nBłędny format daty\n");
+            printMessage("\nBłędny format daty\n");
         } catch (PlayerException e) {
-            System.out.println(e.getMessage());
+            printMessage(e.getMessage());
         } catch (InputMismatchException e) {
-            System.out.println("\nNiepoprawne dane\n");
+            printMessage("\nNiepoprawne dane\n");
         } catch (IllegalArgumentException e) {
-            System.out.println("\nBłędna pozycja zawodnika\n");
+            printMessage("\nBłędnie wprowadzone dane\n");
         }
         return -1;
     }
@@ -53,68 +48,70 @@ public class Controller {
             case 4 -> addPlayer();
             case 5 -> deletePlayer();
             case 6 -> endProgram();
-            default -> System.out.println("Nie ma takiej opcji do wyboru\n");
+            default -> printMessage("Nie ma takiej opcji do wyboru\n");
         }
     }
 
-    private void showProgramOptions() {
-        System.out.println("""
+    private String showProgramOptions() {
+        return """
                 1. Wyświetl wszystkich dostępnych zawodników
                 2. Szukaj zawodnika
                 3. Wyświetl zawodników z danej pozycji
                 4. Dodaj zawodnika do klubu
                 5. Usuń zawodnika z klubu
-                6. Zakończ program""");
+                6. Zakończ program""";
     }
 
     private void showPlayers() {
+        StringBuilder show = new StringBuilder();
         for (Player player : manager.getPlayers()) {
-            //printf
+            show.append(player.getName()).append(" ").append(player.getSurname()).append(", data urodzenia: ").
+                    append(player.getDateOfBirth()).append(", liczba goli: ").append(player.getNumberOfGoals()).
+                    append(", pozycja: ").append(player.getPosition()).append("\n");
+        }
+        printMessage(show.toString());
+            /*printf
             System.out.printf("%s %s, data urodzenia: %s, liczba goli: %d, pozycja: %s\n",
                     player.getName(), player.getSurname(), player.getDateOfBirth(), player.getNumberOfGoals(), player.getPosition());
 
             //%s - String
             //%d - liczba całkowita
-            //%f - liczba dziesiętna
-        }
-        System.out.println();
+            //%f - liczba dziesiętna*/
     }
 
     private void searchPlayer() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj imię: ");
-        String name = scanner.nextLine();
-        System.out.print("Podaj nazwisko: ");
-        String surname = scanner.nextLine();
+        String name = readAnswer("Podaj imię: ");
+        String surname = readAnswer("Podaj nazwisko: ");
         showPlayer(name, surname);
     }
 
     private void showPlayer(String name, String surname) {
+        StringBuilder show = new StringBuilder();
         for (Player player : manager.getPlayers()) {
             if (player.getName().equalsIgnoreCase(name) && player.getSurname().equalsIgnoreCase(surname)) {
-                System.out.printf("\n%s %s, data urodzenia: %s, liczba goli: %d, pozycja: %s\n\n",
-                        player.getName(), player.getSurname(), player.getDateOfBirth(), player.getNumberOfGoals(), player.getPosition());
+                show.append(player.getName()).append(" ").append(player.getSurname()).append(", data urodzenia: ").
+                        append(player.getDateOfBirth()).append(", liczba goli: ").append(player.getNumberOfGoals()).
+                        append(", pozycja: ").append(player.getPosition()).append("\n");
+                printMessage(show.toString());
                 return;
             }
         }
-        System.out.println("\nZawodnik nie występuje\n");
+        printMessage("\nZawodnik nie występuje\n");
     }
 
     private void showPlayersOnSpecificPosition() {
         showPositionToChoose();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj pozycję: ");
-        String position = scanner.nextLine().toUpperCase();
+        String position = readAnswer("Podaj pozycję: ").toUpperCase();
         Position positionEnum = Position.valueOf(position);
-        System.out.println();
+        StringBuilder show = new StringBuilder();
         for (Player player : manager.findPlayersOnPosition(positionEnum)) {
-            System.out.println(player.getName() + " " + player.getSurname());
+            show.append(player.getName()).append(" ").append(player.getSurname()).append("\n");
         }
-        System.out.println();
+        printMessage(show.toString());
     }
 
     private void showPositionToChoose() {
-        System.out.println("""
+        printMessage("""
                 Pozycje możliwe do wyboru:
                 N - napastnik
                 POM - pomocnik
@@ -123,33 +120,28 @@ public class Controller {
     }
 
     private void addPlayer() throws DateTimeParseException, PlayerException, InputMismatchException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj imię: ");
-        String name = scanner.nextLine();
-        System.out.print("Podaj nazwisko: ");
-        String surname = scanner.nextLine();
-        System.out.print("Podaj datę urodzenia [yyyy-mm-dd]: ");
-        String dateOfBirth = scanner.nextLine();
+        String name = readAnswer("Podaj imię: ");
+        String surname = readAnswer("Podaj nazwisko: ");
+        String dateOfBirth = readAnswer("Podaj datę urodzenia [yyyy-mm-dd]: ");
         LocalDate localDate = LocalDate.parse(dateOfBirth);
-        System.out.print("Podaj liczbę zdobytych goli w karierze: ");
-        int numberOfGoals = scanner.nextInt();
-        System.out.print("Podaj pozycję na boisku: ");
-        String position = scanner.next();
+        int numberOfGoals = Integer.parseInt(readAnswer("Podaj liczbę zdobytych goli w karierze: "));
+        String position = readAnswer("Podaj pozycję na boisku: ");
         manager.addPlayer(name, surname, localDate, numberOfGoals, position.toUpperCase());
-        System.out.println("\nDodano nowego zawodnika\n");
+        printMessage("\nDodano nowego zawodnika\n");
     }
 
     private void deletePlayer() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj imię zawodnika: ");
-        String name = scanner.nextLine();
-        System.out.print("Podaj nazwisko zawodnika: ");
-        String surname = scanner.nextLine();
+        String name = readAnswer("Podaj imię zawodnika: ");
+        String surname = readAnswer("Podaj nazwisko zawodnika: ");
         manager.deletePlayer(name, surname);
-        System.out.println("\nUsunięto\n");
+        printMessage("\nUsunięto\n");
     }
 
     private void endProgram() {
-        System.out.println("\nDO WIDZENIA\n");
+        printMessage("\nDO WIDZENIA\n");
     }
+
+    abstract void printMessage(String message);
+
+    abstract String readAnswer(String question);
 }

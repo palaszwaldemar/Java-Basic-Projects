@@ -43,13 +43,17 @@ public class FileRepository {
         String dateOfBirthString = dateOfBirth.toString();
         long age = dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS);
         if (dateOfBirth.isAfter(LocalDate.now())) {
-            throw new PlayerException("\nData urodzenia nie może być z przyszłości\n");
+            throw new PlayerException("\nData urodzenia nie może być z przyszłości\n\n");
         }
         if (age < 18) {
-            throw new PlayerException("\nZawodnik musi być pełnoletni\n");
+            throw new PlayerException("\nZawodnik musi być pełnoletni\n\n");
         }
         if (numberOFGoals < 0) {
-            throw new PlayerException("\nLiczba goli nie może być mniejsza od 0\n");
+            throw new PlayerException("\nLiczba goli nie może być mniejsza od 0\n\n");
+        }
+        if (!(position.equalsIgnoreCase("N")||position.equalsIgnoreCase("POM")
+                ||position.equalsIgnoreCase("OBR")||position.equalsIgnoreCase("BR"))) {
+            throw new IllegalArgumentException();
         }
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file, true);
