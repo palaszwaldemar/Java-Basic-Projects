@@ -5,41 +5,36 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
-public class Controller {
+public abstract class Controller {
     private final HotelService hotelService = new HotelService();
     private static final int CLOSE_PROGRAM = 8;
 
     void start() {
-        System.out.println("\nWITAMY W NASZYM HOTELU\n");
-        System.out.println("Proszę wybrać numer opcji:");
+        printMessage("\nWITAMY W NASZYM HOTELU\n");
         interactWithMenu();
     }
 
     private void interactWithMenu() {
-        Scanner scanner = new Scanner(System.in);
         int choose;
         do {
-            showAvailableOptions();
-            System.out.print("Twój wybór: ");
-            choose = handleDecision(scanner);
+            choose = handleDecision();
         } while (choose != CLOSE_PROGRAM);
     }
 
-    private int handleDecision(Scanner scanner) {
+    private int handleDecision() {
         try {
-            int choose = scanner.nextInt();
+            int choose = Integer.parseInt(readAnswer(showAvailableOptions() + "Twój wybór: "));
             chooseOption(choose);
-            System.out.println();
             return choose;
         } catch (InputMismatchException e) {
-            System.out.println("\nPodano litery zamiast liczby\n");
-            scanner.nextLine();
+            printMessage("\nPodano litery zamiast liczby\n");
         } catch (HotelException e) {
-            System.out.println(e.getMessage());
+            printMessage(e.getMessage());
         } catch (DateTimeParseException e) {
-            System.out.println("\nBłędny format daty\n");
+            printMessage("\nBłędny format daty\n");
+        } catch (NumberFormatException e) {
+            printMessage("\nProszę podać liczbę\n");
         }
         return -1;
     }
@@ -54,12 +49,12 @@ public class Controller {
             case 6 -> checkIn();
             case 7 -> checkOut();
             case 8 -> endProgram();
-            default -> System.out.println("\nNie ma takiej opcji do wyboru");
+            default -> printMessage("\nNie ma takiej opcji do wyboru");
         }
     }
 
-    private void showAvailableOptions() {
-        System.out.println("""
+    private String showAvailableOptions() {
+        return ("""
                 1. Wyświetl listę pokoi
                 2. Wyświetl listę dostępnych pokoi
                 3. Wyświetl listę zajętych pokoi
@@ -72,91 +67,86 @@ public class Controller {
 
     private void showAllRooms() {
         String status;
-        System.out.println();
+        StringBuilder show = new StringBuilder();
         for (Room room : hotelService.allRooms()) {
             if (room.isAvailable()) {
                 status = "wolny";
             } else {
                 status = "zajęty";
             }
-            System.out.println("Pokój nr: " + room.getNumberOfRoom() + " \tstatus: "
-                    + status + " \t   ilość miejsc: "
-                    + room.getHowManyPersonCanCheckIn());
+            show.append("Pokój nr: ").append(room.getNumberOfRoom()).append(" \tstatus: ").append(status).
+                    append(" \t   ilość miejsc: ").append(room.getHowManyPersonCanCheckIn()).append("\n");
         }
+        printMessage(show.toString());
     }
 
     private void showAvailableRooms() {
-        System.out.println();
+        StringBuilder show = new StringBuilder();
         for (Room room : hotelService.availableRooms()) {
-            System.out.println("Pokój nr: " + room.getNumberOfRoom());
+            show.append("Pokój nr: ").append(room.getNumberOfRoom()).append("\n");
         }
+        printMessage(show.toString());
     }
 
     private void showUnavailableRooms() {
-        System.out.println();
+        StringBuilder show  = new StringBuilder();
         for (Room room : hotelService.unavailableRooms()) {
-            System.out.println("Pokój nr: " + room.getNumberOfRoom()
-                    + "\tdata wymeldowania: " + room.getCheckOutDate());
+            show.append("Pokój nr: ").append(room.getNumberOfRoom()).append("\t data wymeldowania: ").
+                    append(room.getCheckOutDate()).append("\n");
         }
+        printMessage(show.toString());
     }
 
     private void showDirtyRooms() {
+        StringBuilder show = new StringBuilder();
         for (Room room : hotelService.dirtyRooms()) {
-            System.out.println("\nPokój nr: " + room.getNumberOfRoom());
+            show.append("\nPokój nr: ").append(room.getNumberOfRoom()).append("\n");
         }
+        printMessage(show.toString());
     }
 
     private void cleanRoom() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj numer pokoju do posprzątania: ");
-        int numberOfRoomToClean = scanner.nextInt();
-        System.out.println(hotelService.cleanRoom(numberOfRoomToClean));
+        int numberOfRoomToClean = Integer.parseInt(readAnswer("Podaj numer pokoju do posprzątania: "));
+        printMessage(hotelService.cleanRoom(numberOfRoomToClean));
     }
 
     private List<Guest> createListOfGuests(int numberOfGuests) {
         List<Guest> guests = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < numberOfGuests; i++) {
-            System.out.print("Podaj imię " + (i + 1) + " osoby: ");
-            String name = scanner.next();
-            System.out.print("Podaj nazwisko " + (i + 1) + " osoby: ");
-            String surname = scanner.next();
-            System.out.print("Podaj datę urodzenia " + (i + 1) + " osoby [rrrr-mm-dd]: ");
-            String dateOfBirth = scanner.next();
+            String name = readAnswer("Podaj imię " + (i + 1) + " osoby: ");
+            String surname = readAnswer("Podaj nazwisko " + (i + 1) + " osoby: ");
+            String dateOfBirth = readAnswer("Podaj datę urodzenia " + (i + 1) + " osoby [rrrr-mm-dd]: ");
             LocalDate localDate = LocalDate.parse(dateOfBirth);
             guests.add(new Guest(name, surname, localDate));
-            System.out.println();
         }
         return guests;
     }
 
     private void checkIn() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj numer pokoju do rezerwacji: ");
-        int numberOfRoomToCheckIn = scanner.nextInt();
-        System.out.print("Podaj ile osób będzie meldowanych: ");
-        int numberOfGuests = scanner.nextInt();
+        int numberOfRoomToCheckIn = Integer.parseInt(readAnswer("Podaj numer pokoju do rezerwacji: "));
+        int numberOfGuests = Integer.parseInt(readAnswer("Podaj ile osób będzie meldowanych: "));
         if (!hotelService.enoughPlaces(numberOfGuests, numberOfRoomToCheckIn)) {
             throw new HotelException("\nPokój zbyt mały dla takiej liczby osób\n");
         }
-        System.out.print("Podaj datę wymeldowania [rrrr-mm-dd]: ");
-        String checkOutDate = scanner.next();
+        String checkOutDate = readAnswer("Podaj datę wymeldowania [rrrr-mm-dd]: ");
         LocalDate localDate = LocalDate.parse(checkOutDate);
         if (localDate.isBefore(LocalDate.now())) {
             throw new HotelException("\nData musi być póżniejsza niż " + LocalDate.now() + "\n");
         }
         List<Guest> guests = createListOfGuests(numberOfGuests);
-        System.out.println(hotelService.bookRoom(numberOfRoomToCheckIn, guests, localDate));
+        printMessage(hotelService.bookRoom(numberOfRoomToCheckIn, guests, localDate));
     }
 
     private void checkOut() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj numer pokoju do wymeldowania: ");
-        int numberOfRoomToCheckOut = scanner.nextInt();
-        System.out.println(hotelService.unBookRoom(numberOfRoomToCheckOut));
+        int numberOfRoomToCheckOut = Integer.parseInt(readAnswer("Podaj numer pokoju do wymeldowania: "));
+        printMessage(hotelService.unBookRoom(numberOfRoomToCheckOut));
     }
 
     private void endProgram() {
-        System.out.println("\nDO WIDZENIA");
+        printMessage("\nDO WIDZENIA");
     }
+
+    abstract void printMessage(String message);
+
+    abstract String readAnswer(String question);
 }
