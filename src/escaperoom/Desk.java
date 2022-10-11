@@ -1,6 +1,6 @@
 package escaperoom;
 
-public class Desk extends Item{
+public class Desk extends Item {
     private final Key keyToOpenDesk;
     private final Key keyToOpenDoor;
     private boolean wasUse;
@@ -15,7 +15,7 @@ public class Desk extends Item{
     @Override
     Dialog use(Mediator mediator) {
         if (wasUse) {
-            if(!isOpen) {
+            if (!isOpen) {
                 isOpen = true;
                 return new Dialog("Otwierasz biurko");
             } else {

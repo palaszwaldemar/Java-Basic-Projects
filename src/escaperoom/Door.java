@@ -10,7 +10,7 @@ public class Door extends Item {
 
     @Override
     Dialog use(Mediator mediator) {
-        if (mediator.getPlayer().hasItem(key)){
+        if (mediator.getPlayer().hasItem(key)) {
             mediator.goToNextRoom();
             mediator.removeAllPlayersItems();
             if (mediator.isTheLasRoom()) {

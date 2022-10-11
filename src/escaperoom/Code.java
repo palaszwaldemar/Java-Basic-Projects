@@ -1,6 +1,6 @@
 package escaperoom;
 
-public class Code extends Item{
+public class Code extends Item {
     private final String code;
 
     public Code(String code) {

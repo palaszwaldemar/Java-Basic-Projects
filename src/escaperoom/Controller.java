@@ -16,7 +16,7 @@ public abstract class Controller {
 
     private void displayPlayerItems() {
         StringBuilder show = new StringBuilder();
-        for(String name : game.getOwnedItemNames()){
+        for (String name : game.getOwnedItemNames()) {
             show.append(name).append("\n");
         }
         printMessage("\nPrzedmioty w plecaku:\n" + show + "\n");
