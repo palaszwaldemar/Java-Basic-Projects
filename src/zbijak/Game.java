@@ -6,9 +6,8 @@ import java.util.Random;
 
 public class Game {
     private final int SIZE = 10;
-    private final List<Player> allPlayers = new ArrayList<>();
     private final List<Player> humanTeam = new ArrayList<>();
-    private final  List<Player> npcTeam = new ArrayList<>();
+    private final List<Player> npcTeam = new ArrayList<>();
 
     public Game() {
         HumanPlayer humanPlayer = new HumanPlayer(SIZE - 1, SIZE - 1);
@@ -16,18 +15,10 @@ public class Game {
         NpcPlayer npcPlayer2 = new NpcPlayer(0, SIZE - 1);
         NpcPlayer npcPlayer3 = new NpcPlayer(SIZE - 1, 0);
 
-        allPlayers.add(npcPlayer1);
-        allPlayers.add(npcPlayer2);
-        allPlayers.add(npcPlayer3);
-        allPlayers.add(humanPlayer);
-
-        for (Player player : allPlayers) {
-            if (player.isHuman()) {
-                humanTeam.add(player);
-            } else {
-                npcTeam.add(player);
-            }
-        }
+        npcTeam.add(npcPlayer1);
+        npcTeam.add(npcPlayer2);
+        npcTeam.add(npcPlayer3);
+        humanTeam.add(humanPlayer);
     }
 
     public int getSIZE() {
@@ -43,7 +34,12 @@ public class Game {
     }
 
     String getFieldText(int x, int y) {
-        for (Player player : allPlayers) {
+        for (Player player : humanTeam) {
+            if (x == player.getX() && y == player.getY()) {
+                return player.getName();
+            }
+        }
+        for (Player player : npcTeam) {
             if (x == player.getX() && y == player.getY()) {
                 return player.getName();
             }
@@ -87,19 +83,25 @@ public class Game {
         }
     }
 
+    void deletePlayerIfTheSameLocation(List<Player> list, int x, int y) {
+        list.removeIf(player -> x == player.getX() && y == player.getY());
+    }
+
     void moveNpcTeam() {
         String[] directionsOfMovement = new String[]{"w", "a", "s", "d"};
-        for (Player player : npcTeam) {
+        for (Player npc : npcTeam) {
             Random random = new Random();
             int directionIndex = random.nextInt(directionsOfMovement.length);
             String direction = directionsOfMovement[directionIndex];
-            move(direction, player);
+            move(direction, npc);
+            deletePlayerIfTheSameLocation(humanTeam, npc.getX(), npc.getY());
         }
     }
 
     void moveHumanTeam(String direction) throws IllegalArgumentException {
-            for (Player player : humanTeam) {
-                move(direction, player);
-            }
+        for (Player human : humanTeam) {
+            move(direction, human);
+            deletePlayerIfTheSameLocation(npcTeam, human.getX(), human.getY());
+        }
     }
 }

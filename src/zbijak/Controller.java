@@ -1,46 +1,45 @@
 package zbijak;
 
-import java.util.Scanner;
-
-public class Controller {
+public abstract class Controller {
     private final Game game = new Game();
 
     private void showTable() {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int y = 0; y < game.getSIZE(); y++) {
             for (int x = 0; x < game.getSIZE(); x++) {
-                System.out.print(game.getFieldText(x, y) + " ");
+                stringBuilder.append(game.getFieldText(x, y)).append("  ");
             }
-            System.out.println();
+            stringBuilder.append("\n");
         }
-        System.out.println();
+        printMessage(stringBuilder.toString());
     }
 
     private void welcome() {
-        System.out.println("\nGRA ZBIJAK\nSTEROWANIE: W, A, S, D\n");
+        printMessage("\nGRA ZBIJAK\nSTEROWANIE: W, A, S, D\n");
         showTable();
     }
 
     private void endGame() {
-        if(game.getHumanTeam().isEmpty()) {
-            System.out.println("Niestety przegrałeś");
+        if (game.getHumanTeam().isEmpty()) {
+            printMessage("Niestety przegrałeś");
         } else {
-            System.out.println("Gratulacje. Wygrałeś");
+            printMessage("Gratulacje. Wygrałeś");
         }
     }
 
-    private void humanTeamMove() {
-        Scanner scanner = new Scanner(System.in);
-        int count = 1;
+    private void humanTeamMove() {// CHECK: 11.10.2022 czy da się to jakoś czytelniej napisać?
+        int count = 0;
         do {
             try {
-                System.out.print("Podaj " + count + " kierunek: ");
-                game.moveHumanTeam(scanner.nextLine());
-                showTable();
-                count ++;
+                game.moveHumanTeam(readAnswer("Podaj " + (count + 1) + " kierunek: "));
+                if (count < 1) {
+                    showTable();
+                }
+                count++;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                printMessage(e.getMessage());
             }
-        } while (count <= 2);
+        } while (count <= 1);
     }
 
     private void npcTeamMove() {
@@ -50,10 +49,23 @@ public class Controller {
 
     void start() {
         welcome();
+        boolean humanMove = true;
         do {
-            humanTeamMove();
-            npcTeamMove();
-        } while (game.getHumanTeam().isEmpty() || game.getNpcTeam().isEmpty());
+            if (humanMove) {
+                humanTeamMove();
+                humanMove = false;
+            } else {
+                npcTeamMove();
+                humanMove = true;
+            }
+        } while (!game.getHumanTeam().isEmpty() && !game.getNpcTeam().isEmpty());
+        if (!game.getHumanTeam().isEmpty()) {
+            showTable();
+        }
         endGame();
     }
+
+    abstract void printMessage(String message);
+
+    abstract String readAnswer(String question);
 }

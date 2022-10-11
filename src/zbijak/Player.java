@@ -30,6 +30,4 @@ public abstract class Player {
     public void setY(int y) {
         this.y = y;
     }
-
-    abstract boolean isHuman();
 }

@@ -5,9 +5,4 @@ public class HumanPlayer extends Player {
     public HumanPlayer(int x, int y) {
         super(x, y, "H");
     }
-
-    @Override
-    boolean isHuman() {
-        return true;
-    }
 }
