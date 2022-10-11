@@ -51,8 +51,8 @@ public class FileRepository {
         if (numberOFGoals < 0) {
             throw new PlayerException("\nLiczba goli nie może być mniejsza od 0\n\n");
         }
-        if (!(position.equalsIgnoreCase("N")||position.equalsIgnoreCase("POM")
-                ||position.equalsIgnoreCase("OBR")||position.equalsIgnoreCase("BR"))) {
+        if (!(position.equalsIgnoreCase("N") || position.equalsIgnoreCase("POM")
+                || position.equalsIgnoreCase("OBR") || position.equalsIgnoreCase("BR"))) {
             throw new IllegalArgumentException();
         }
         try {
