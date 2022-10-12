@@ -3,7 +3,7 @@ package zbijak;
 public abstract class Controller {
     private final Game game = new Game();
 
-    private void showTable() {
+    private StringBuilder showTable() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int y = 0; y < game.getSIZE(); y++) {
             for (int x = 0; x < game.getSIZE(); x++) {
@@ -11,12 +11,11 @@ public abstract class Controller {
             }
             stringBuilder.append("\n");
         }
-        printMessage(stringBuilder.toString());
+        return stringBuilder;
     }
 
     private void welcome() {
         printMessage("\nGRA ZBIJAK\nSTEROWANIE: W, A, S, D\n");
-        showTable();
     }
 
     private void endGame() {
@@ -29,23 +28,19 @@ public abstract class Controller {
 
     private void humanTeamMove() {// CHECK: 11.10.2022 czy da się to jakoś czytelniej napisać?
         // TODO: 12.10.2022 test
-        int count = 0;
+        int count = 1;
         do {
             try {
-                game.moveHumanTeam(readAnswer("Podaj " + (count + 1) + " kierunek: "));
-                if (count < 1) {
-                    showTable();
-                }
+                game.moveHumanTeam(readAnswer(showTable() + "Podaj " + count + " kierunek: "));
                 count++;
             } catch (IllegalArgumentException e) {
                 printMessage(e.getMessage());
             }
-        } while (count <= 1);
+        } while (count <= 2);
     }
 
     private void npcTeamMove() {
         game.moveNpcTeam();
-        showTable();
     }
 
     void start() {
@@ -60,9 +55,7 @@ public abstract class Controller {
                 humanMove = true;
             }
         } while (!game.getHumanTeam().isEmpty() && !game.getNpcTeam().isEmpty());
-        if (!game.getHumanTeam().isEmpty()) {
-            showTable();
-        }
+        printMessage(showTable().toString());
         endGame();
     }
 
