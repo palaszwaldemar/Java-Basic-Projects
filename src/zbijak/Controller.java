@@ -28,6 +28,7 @@ public abstract class Controller {
     }
 
     private void humanTeamMove() {// CHECK: 11.10.2022 czy da się to jakoś czytelniej napisać?
+        // TODO: 12.10.2022 test
         int count = 0;
         do {
             try {
