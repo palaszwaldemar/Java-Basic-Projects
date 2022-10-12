@@ -83,8 +83,8 @@ public class Game {
         }
     }
 
-    void deletePlayerIfTheSameLocation(List<Player> list, int x, int y) {
-        list.removeIf(player -> x == player.getX() && y == player.getY());
+    void deletePlayerIfTheSameLocation(List<Player> playersToRemove, int x, int y) {
+        playersToRemove.removeIf(player -> x == player.getX() && y == player.getY());
     }
 
     void moveNpcTeam() {
