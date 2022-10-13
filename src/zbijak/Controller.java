@@ -7,7 +7,7 @@ public abstract class Controller {
         StringBuilder stringBuilder = new StringBuilder();
         for (int y = 0; y < game.getSIZE(); y++) {
             for (int x = 0; x < game.getSIZE(); x++) {
-                stringBuilder.append(game.getFieldText(x, y)).append("  ");
+                stringBuilder.append(game.getFieldText(x, y)).append("   ");
             }
             stringBuilder.append("\n");
         }
@@ -26,8 +26,7 @@ public abstract class Controller {
         }
     }
 
-    private void humanTeamMove() {// CHECK: 11.10.2022 czy da się to jakoś czytelniej napisać?
-        // TODO: 12.10.2022 test
+    private void humanTeamMove() {
         int count = 1;
         do {
             try {
