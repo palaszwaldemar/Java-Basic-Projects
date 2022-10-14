@@ -23,11 +23,36 @@ public abstract class Player {
         return y;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+    void move(Direction direction) {
+        switch (direction) {
+            case UP -> {
+                if (y == 0) {
+                    y = Game.SIZE - 1;
+                    break;
+                }
+                y--;
+            }
+            case DOWN -> {
+                if (y == Game.SIZE - 1) {
+                    y = 0;
+                    break;
+                }
+                y++;
+            }
+            case LEFT -> {
+                if (x == 0) {
+                    x = Game.SIZE - 1;
+                    break;
+                }
+                x--;
+            }
+            case RIGHT -> {
+                if (x == Game.SIZE - 1) {
+                    x = 0;
+                    break;
+                }
+                x++;
+            }
+        }
     }
 }

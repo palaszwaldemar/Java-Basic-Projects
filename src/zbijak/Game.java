@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-    private final int SIZE = 10;
+    final static int SIZE = 10;// CHECK: 14.10.2022 czy to pole może zostać z domyślnym dostępem?
+    private final static String[] directionsOfMovement = new String[] {"W","A","S","D"};// CHECK: 14.10.2022 czy da się tą tablicę jakoś zbudować z Klasy Direction?
     private final List<Player> humanTeam = new ArrayList<>();
     private final List<Player> npcTeam = new ArrayList<>();
 
@@ -47,48 +48,17 @@ public class Game {
         return "*";
     }
 
-    private void move(String direction, Player player) {// CHECK: 10.10.2022 czy powinienem rozbić tą metodę na mniejsze metody?
-        int x = player.getX();
-        int y = player.getY();
-        switch (direction.toUpperCase()) {
-            case "W" -> {
-                if (y == 0) {
-                    player.setY(SIZE - 1);
-                    break;
-                }
-                player.setY(player.getY() - 1);
-            }
-            case "A" -> {
-                if (x == 0) {
-                    player.setX(SIZE - 1);
-                    break;
-                }
-                player.setX(player.getX() - 1);
-            }
-            case "S" -> {
-                if (y == SIZE - 1) {
-                    player.setY(0);
-                    break;
-                }
-                player.setY(player.getY() + 1);
-            }
-            case "D" -> {
-                if (x == SIZE - 1) {
-                    player.setX(0);
-                    break;
-                }
-                player.setX(player.getX() + 1);
-            }
+    private void move(String direction, Player player) {
+        switch (direction.toUpperCase()) {// CHECK: 14.10.2022 poruszanie się npc-ów przeniesione do klasy Player
+            case "W" -> player.move(Direction.UP);// CHECK: 14.10.2022 jak zrobić aby można było przeszukiwać pole directionsOfMovement?
+            case "A" -> player.move(Direction.LEFT);
+            case "S" -> player.move(Direction.DOWN);
+            case "D" -> player.move(Direction.RIGHT);
             default -> throw new IllegalArgumentException("Niepoprawny kierunek kierunek");
         }
     }
 
-    void deletePlayerIfTheSameLocation(List<Player> playersToRemove, int x, int y) {
-        playersToRemove.removeIf(player -> x == player.getX() && y == player.getY());
-    }
-
     void moveNpcTeam() {
-        String[] directionsOfMovement = new String[]{"w", "a", "s", "d"};
         for (Player npc : npcTeam) {
             Random random = new Random();
             int directionIndex = random.nextInt(directionsOfMovement.length);
@@ -96,6 +66,10 @@ public class Game {
             move(direction, npc);
             deletePlayerIfTheSameLocation(humanTeam, npc.getX(), npc.getY());
         }
+    }
+
+    private void deletePlayerIfTheSameLocation(List<Player> playersToRemove, int x, int y) {
+        playersToRemove.removeIf(player -> x == player.getX() && y == player.getY());
     }
 
     void moveHumanTeam(String direction) throws IllegalArgumentException {
