@@ -3,12 +3,23 @@ package florist;
 public class PriceList {
     private static final PriceList priceList = new PriceList();
 
-    private PriceList() {
-        System.out.println("Tworzę priceList");
+    static PriceList getInstance() {
+        return priceList;
     }
 
-    static PriceList getInstance() {
-        System.out.println("Zwracam PriceList");
-        return priceList;
+    void put(String name, double price) {
+        if (name.equals("róża")) {
+            Rose.setPrice(price);
+        }
+        if (name.equals("piwonia")) {
+            Peony.setPrice(price);
+        }
+        if (name.equals("frezja")) {
+            Freesia.setPrice(price);
+        }
+        if (name.equals("bez")) {
+            Lilac.setPrice(price);
+        }
+
     }
 }
