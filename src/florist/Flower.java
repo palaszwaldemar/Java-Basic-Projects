@@ -2,23 +2,33 @@ package florist;
 
 public abstract class Flower {
     private final int howMany;
+    private final String name;
+    private final String color;
 
-    public Flower(int howMany) {
+    public Flower(int howMany, String name, String color) {
         this.howMany = howMany;
+        this.name = name;
+        this.color = color;
     }
 
     public int getHowMany() {
         return howMany;
     }
 
-    abstract double getPrice();
+    double getPrice() {
+        return PriceList.getInstance().getPrice(name);
+    }
 
-    abstract String getName();
+    public String getColor() {
+        return color;
+    }
 
-    abstract String getColor();
+    double getFullPrice() {
+        return getHowMany() * getPrice();
+    }
 
     @Override
     public String toString() {
-        return getName() + ", kolor: " + getColor() + ", ilość " + getHowMany() + ", cena " + getPrice();
+        return name + ", kolor: " + getColor() + ", ilość " + getHowMany() + ", cena " + getPrice();
     }
 }

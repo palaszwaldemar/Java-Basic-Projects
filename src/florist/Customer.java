@@ -14,6 +14,32 @@ public class Customer {
         this.cash = cash;
     }
 
+    void add(Flower flower) {
+        shoppingCart.add(flower);
+    }
+
+    void pay() {
+        List<Flower> flowersToRemove = new ArrayList<>();
+        List<Flower> flowers = shoppingCart.getFlowers();
+        flowers.removeIf(flower -> flower.getPrice() == -1);
+        shoppingCart.setFlowers(flowers);
+        for (Flower flower : shoppingCart.getFlowers()) {
+            if (cash >= flower.getFullPrice()) {
+                cash -= flower.getFullPrice();
+            } else {
+                flowersToRemove.add(flower);
+            }
+        }
+        shoppingCart.removeFlowers(flowersToRemove);
+    }
+
+    void pack(Box box) {
+        for (Flower flower : shoppingCart.getFlowers()) {
+            box.add(flower);
+        }
+        shoppingCart.remove();
+    }
+
     public String getName() {
         return name;
     }
@@ -24,31 +50,5 @@ public class Customer {
 
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
-    }
-
-    void add(Flower flower) {
-        shoppingCart.setFlowers(flower);
-    }
-
-    void pay() {
-        List<Flower> additionalFlowersList = new ArrayList<>();
-        shoppingCart.getFlowers().removeIf(flower -> flower.getPrice() == -1);
-        for (Flower flower : shoppingCart.getFlowers()) {
-            if (cash >= flower.getHowMany() * flower.getPrice()) {
-                cash = cash - flower.getHowMany() * flower.getPrice();
-            } else {
-                additionalFlowersList.add(flower);
-            }
-        }
-        for (Flower flowerToRemove : additionalFlowersList) {
-            shoppingCart.removeFlower(flowerToRemove);
-        }
-    }
-
-    void pack(Box box) {
-        for (Flower flower : shoppingCart.getFlowers()) {
-            box.pack(flower);
-        }
-        shoppingCart.removeShoppingCart();
     }
 }

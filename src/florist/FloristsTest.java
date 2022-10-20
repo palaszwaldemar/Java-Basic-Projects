@@ -1,4 +1,4 @@
-package florist;// CHECK: 19.10.2022 sprawdzić
+package florist;
 
 
 //        Kwiaciarnia (uwaga: niezbędny do wykonania tego zadania  materiał  zawiera punkt o polimorfizmie w wykładzie, dotyczącym programowania obiektowego)
@@ -12,8 +12,8 @@ package florist;// CHECK: 19.10.2022 sprawdzić
 
 public class FloristsTest {
     // definicja metody sumowania wartosci kwiatów o podanym kolorze
-    static int valueOf(Box box, String color) {
-        return (int) box.priceOfOneTypeFlowers(color);
+    static double valueOf(Box box, String color) {
+        return  box.priceOfOneTypeFlowers(color);
     }
 
     public static void main(String[] args) {
