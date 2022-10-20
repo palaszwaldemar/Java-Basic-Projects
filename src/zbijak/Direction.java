@@ -21,16 +21,14 @@ public enum Direction {
 
     static Direction findDirectionByKey(String key) {
         for (Direction value : Direction.values()) {
-            if (value.getKey().equals(key)) {
+            if (value.getKey().equals(key)) {// CHECK: 20.10.2022 czy taki może być warunek?
                 return value;
             }
         }
         throw new NoSuchElementException("Niedopasowano kierunku");
     }
 
-    // TODO: 20.10.2022 dodać metodę zwracającą losowy kierunek
-
-    static String randomDirection() {
+    static String randomDirection() {// CHECK: 20.10.2022 czy tak może wyglądać metoda losowania kierunku?
         Random random = new Random();
         int indexOfValues = random.nextInt(3);
         return Direction.values()[indexOfValues].getKey();
