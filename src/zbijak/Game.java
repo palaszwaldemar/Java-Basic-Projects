@@ -2,11 +2,10 @@ package zbijak;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.NoSuchElementException;
 
 public class Game {
-    final static int SIZE = 10;// CHECK: 14.10.2022 czy to pole może zostać z domyślnym dostępem?
-    private final static String[] directionsOfMovement = new String[] {"W","A","S","D"};// CHECK: 14.10.2022 czy da się tą tablicę jakoś zbudować z Klasy Direction?
+    final static int SIZE = 10;
     private final List<Player> humanTeam = new ArrayList<>();
     private final List<Player> npcTeam = new ArrayList<>();
 
@@ -48,22 +47,13 @@ public class Game {
         return "*";
     }
 
-    private void move(String direction, Player player) {
-        switch (direction.toUpperCase()) {// CHECK: 14.10.2022 poruszanie się npc-ów przeniesione do klasy Player
-            case "W" -> player.move(Direction.UP);// CHECK: 14.10.2022 jak zrobić aby można było przeszukiwać pole directionsOfMovement?
-            case "A" -> player.move(Direction.LEFT);
-            case "S" -> player.move(Direction.DOWN);
-            case "D" -> player.move(Direction.RIGHT);
-            default -> throw new IllegalArgumentException("Niepoprawny kierunek");
-        }
+    private void move(String direction, Player player) throws NoSuchElementException {
+        player.move(Direction.findDirectionByKey(direction.toUpperCase()));
     }
 
     void moveNpcTeam() {
         for (Player npc : npcTeam) {
-            Random random = new Random();
-            int directionIndex = random.nextInt(directionsOfMovement.length);
-            String direction = directionsOfMovement[directionIndex];
-            move(direction, npc);
+            move(Direction.randomDirection(), npc);
             deletePlayerIfTheSameLocation(humanTeam, npc.getX(), npc.getY());
         }
     }
@@ -72,7 +62,7 @@ public class Game {
         playersToRemove.removeIf(player -> x == player.getX() && y == player.getY());
     }
 
-    void moveHumanTeam(String direction) throws IllegalArgumentException {
+    void moveHumanTeam(String direction) throws NoSuchElementException {
         for (Player human : humanTeam) {
             move(direction, human);
             deletePlayerIfTheSameLocation(npcTeam, human.getX(), human.getY());

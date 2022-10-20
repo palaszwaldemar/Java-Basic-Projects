@@ -1,5 +1,7 @@
 package zbijak;
 
+import java.util.NoSuchElementException;
+
 public abstract class Controller {
     private final Game game = new Game();
 
@@ -29,7 +31,7 @@ public abstract class Controller {
             try {
                 game.moveHumanTeam(readAnswer(showTable() + "Podaj " + count + " kierunek: "));
                 count++;
-            } catch (IllegalArgumentException e) {
+            } catch (NoSuchElementException e) {
                 printMessage(e.getMessage());
             }
         } while (count <= 2);
