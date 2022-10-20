@@ -54,7 +54,7 @@ public class Game {
             case "A" -> player.move(Direction.LEFT);
             case "S" -> player.move(Direction.DOWN);
             case "D" -> player.move(Direction.RIGHT);
-            default -> throw new IllegalArgumentException("Niepoprawny kierunek kierunek");
+            default -> throw new IllegalArgumentException("Niepoprawny kierunek");
         }
     }
 
