@@ -29,7 +29,7 @@ public abstract class Controller {
         int count = 1;
         do {
             try {
-                game.moveHumanTeam(readAnswer(showTable() + "Podaj " + count + " kierunek: "));
+                game.moveHumanTeam(Direction.findDirectionByKey(readAnswer(showTable() + "Podaj " + count + " kierunek: ")));
                 count++;
             } catch (NoSuchElementException e) {
                 printMessage(e.getMessage());

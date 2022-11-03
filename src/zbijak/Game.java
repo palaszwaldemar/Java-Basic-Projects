@@ -2,7 +2,6 @@ package zbijak;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class Game {
     final static int SIZE = 10;
@@ -47,13 +46,9 @@ public class Game {
         return "*";
     }
 
-    private void move(String direction, Player player) throws NoSuchElementException {
-        player.move(Direction.findDirectionByKey(direction.toUpperCase()));
-    }
-
     void moveNpcTeam() {
         for (Player npc : npcTeam) {
-            move(Direction.randomDirection(), npc);
+            npc.move(Direction.randomDirection());
             deletePlayerIfTheSameLocation(humanTeam, npc.getX(), npc.getY());
         }
     }
@@ -62,9 +57,9 @@ public class Game {
         playersToRemove.removeIf(player -> x == player.getX() && y == player.getY());
     }
 
-    void moveHumanTeam(String direction) throws NoSuchElementException {
+    void moveHumanTeam(Direction direction) {
         for (Player human : humanTeam) {
-            move(direction, human);
+            human.move(direction);
             deletePlayerIfTheSameLocation(npcTeam, human.getX(), human.getY());
         }
     }
